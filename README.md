@@ -21,19 +21,19 @@ Make sure you select "Checkout as-is, commit Unix-style line endings" during the
 
 <li>
 
-[Git for Windows](https://gitforwindows.org/)
+[Git (Windows)](https://gitforwindows.org/)
 
 </li>
 
 <li>
 
-[Git for Mac](https://git-scm.com/download/mac)
+[Git (Mac)](https://git-scm.com/download/mac)
 
 </li>
 
 <li>
 
-**Install [GitHub CLI](https://cli.github.com/) (MacOS)**
+**Install [GitHub CLI](https://cli.github.com/) (MacOS only)**
 
 ```bash
 brew install gh
@@ -74,12 +74,7 @@ If you installed the GitHub client, you can authenticate with the following comm
 gh auth login
 ```
 
-otherwise enter the following in (git) bash shell to view the contents of your public key
-
-```sh
-cat ~/.ssh/id_ed25519.pub
-```
-and paste this in the text area when adding a [new ssh key in GitHub](https://github.com/settings/ssh/new)
+otherwise copy and paste the content of ~/.ssh/id_ed25519.pub to a [new ssh key in GitHub](https://github.com/settings/ssh/new)
 
 </li>
 
@@ -133,10 +128,11 @@ Download this repository as zip-file and extract files and subdirectories contai
 
 In order to commit and push your changes, you need identitify yourself.
 
-Open a (git)bash, enter directory TINLABML_22-23 and run the following script with your (own) github username and student email address:
+Run the following commands from your TINLABML_22-23 directory with your own github username and email address:
 
-```bash
-install/git_config.sh github_username student@hr.nl
+```sh
+git config user.name <github_username>
+git config user.email <student@hr.nl>
 ```
 
 </li>
@@ -181,24 +177,26 @@ Install [python 3.10](https://www.python.org/downloads/release/python-3105/)
 
 <li>
 
-Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-
-</li>
-
-<li>
-
 Create virtual Python environment 
 
 ```sh
-conda create -n tinlab
+python -m venv tinlab
 ```
 
 Activate virtual Python environment 
 
 Run the following command and add it to your <i>.bashrc</i> or <i>.zshrc</i> to make it the default
 
+in Windows
+
 ```sh
-conda activate tinlab
+venv\Scripts\activate.bat
+```
+
+in MacOS
+
+```sh
+source myvenv/bin/activate
 ```
 
 </li>
@@ -208,7 +206,7 @@ conda activate tinlab
 Install Python libraries
 
 ```bash
-install/install_requirements.sh
+python -m pip install --upgrade pip --no-cache-dir -r requirements.txt
 ```
 
 </li>
@@ -219,13 +217,13 @@ install/install_requirements.sh
 
 <li>
 
-Visual Studio Code
+Visual Studio Code (VSCode)
 
 <ul>
 
 <li>
 
-Install [Visual Studio Code](https://code.visualstudio.com)
+**Install [Visual Studio Code](https://code.visualstudio.com)**
 
 </li>
 
@@ -233,7 +231,8 @@ Install [Visual Studio Code](https://code.visualstudio.com)
 
 **Enable VSCode to be opened from the command line (macOS only)**
 
-In VSCode, open the Command Palette and type 'shell command' in order to select the Shell command: Install ‘code’ command in PATH
+In VSCode, open the Command Palette and type 'shell command' in order to select the Shell command: 
+Install 'code' command in PATH
 
 </li>
 
@@ -252,29 +251,29 @@ code .
 
 <li>
 
-Install Extensions
+**Install VSCode Extensions**
 
 <ul>
 
 <li>
 
-Install the [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+Python extension(https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
 <li>
 
-Install the [Git Easy extension](https://marketplace.visualstudio.com/items?itemName=bibhasdn.git-easy)
+[Git Easy extension](https://marketplace.visualstudio.com/items?itemName=bibhasdn.git-easy)
 
 </li>
 
 <li>
 
-Install the [Mermaid extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+[Mermaid extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
 
 </li>
 
 <li>
 
-Install [Graphviz (dot) language support](https://marketplace.visualstudio.com/items?itemName=joaompinto.vscode-graphviz)
+[Graphviz (dot) language support](https://marketplace.visualstudio.com/items?itemName=joaompinto.vscode-graphviz)
 
 </li>
 
