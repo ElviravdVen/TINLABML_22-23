@@ -1,0 +1,35 @@
+---
+- name: Set timezone to Europe/Amsterdam
+  community.general.timezone:
+    name: Europe/Amsterdam
+
+- name: Set locale en_US.UTF-8
+  ansible.builtin.lineinfile:
+    path: /etc/environment 
+    line: LANG=en_US.UTF-8
+    create: yes
+
+- name: Ansible check /etc/apt/sources.list.d
+  stat:
+    path: /etc/apt/sources.list.d
+  register: apt_dir
+
+- name: "Ansible Create directory if not exists"
+  file:
+    path: //etc/apt/sources.list.d
+    state: directory
+    mode: 0755
+    group: root
+    owner: root
+  when: apt_dir == false  
+
+- name: Make sure file system.sources exists
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/system.sources
+    state: touch
+  when: ansible_distribution in ("Ubuntu", "Linux Mint", "Pop!_OS")
+
+- name: Select mirrors from The Netherlands
+  shell: sed -i 's|http://us.|http://nl.|' /etc/apt/sources.list.d/system.sources 
+  when: 
+    ansible_distribution in ("Ubuntu", "Linux Mint", "Pop!_OS")

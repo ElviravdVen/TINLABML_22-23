@@ -1,0 +1,22 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: torcs:servers
+  become: True
+  become_method: sudo
+  connection: ssh
+  gather_facts: True
+  roles:
+    - time-and-locale
+    - gcc
+    - git
+    - opengl
+    - zip
+    - lib
+
+- hosts: torcs:servers
+  become: False
+  connection: ssh
+  gather_facts: True
+  roles:
+    - plib
+    - torcs

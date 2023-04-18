@@ -1,0 +1,10 @@
+---
+- name: Install zip and unzip
+  package:
+    name: "{{ packages }}"
+    state: present
+    update_cache: "yes"
+  vars:
+    packages:
+      - zip
+      - unzip

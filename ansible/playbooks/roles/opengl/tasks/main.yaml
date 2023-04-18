@@ -1,0 +1,14 @@
+---
+- name: Install OpenGL
+  package:
+    name: "{{ packages }}"
+    state: present
+    update_cache: "yes"
+  vars:
+    packages:
+      - freeglut3 
+      - freeglut3-dev    
+      - libgl1-mesa-glx
+      - vorbis-tools
+      - libvorbis-dev
+      - xautomation

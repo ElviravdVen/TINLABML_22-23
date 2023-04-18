@@ -1,0 +1,14 @@
+debian ansible_port=$PORT ansible_user=$USER
+
+[clients]
+debian
+
+[servers]
+debian
+
+[torcs:children]
+clients
+servers
+
+[local]
+localhost

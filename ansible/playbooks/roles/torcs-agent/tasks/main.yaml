@@ -1,0 +1,4 @@
+---
+- name: Install python packages for torcs-agent
+  ansible.builtin.pip:
+    requirements: /pip/requirements.txt      

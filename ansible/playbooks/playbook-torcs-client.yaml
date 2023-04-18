@@ -1,0 +1,10 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: torcs:clients
+  become: False
+  connection: ssh
+  gather_facts: True
+  roles:
+    - python
+    - pip
+    - torcs-agent    
