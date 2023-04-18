@@ -14,9 +14,8 @@ matplotlib
 numexpr
 numpy
 pandas
-pickle
+pickle4
 ptpython
-py-cpuinfo 
 pydoc-utils
 pynput    
 pyopengl 
