@@ -74,7 +74,7 @@ If you installed the GitHub client, you can authenticate with the following comm
 gh auth login
 ```
 
-otherwise copy and paste the content of ~/.ssh/id_ed25519.pub to a [new ssh key in GitHub](https://github.com/settings/ssh/new)
+otherwise copy and paste the content of your SSH <u>public</u> key to a [new ssh key in GitHub](https://github.com/settings/ssh/new)
 
 </li>
 
