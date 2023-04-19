@@ -285,4 +285,26 @@ Python extension(https://marketplace.visualstudio.com/items?itemName=ms-python.p
 
 </li>
 
+<li>
+
+VirtualBox
+
+<ul>
+
+<li>
+
+Install [VirtualBox](https://www.virtualbox.org/)
+
+</li>
+
+<li>
+
+Install [Vagrant](https://www.vagrantup.com/)
+
+</li>
+
+</ul>
+
+</li>
+
 </ol>
