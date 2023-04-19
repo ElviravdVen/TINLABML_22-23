@@ -1,0 +1,73 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# https://app.vagrantup.com/ubuntu/boxes/trusty64
+
+VAGRANT_API_VERSION = "2"
+# Based on gusztavvargadr/ubuntu-desktop:2004.0.2304
+
+IMAGE_NAME = "gusztavvargadr/ubuntu-desktop"
+BOX_VERSION = "2004.0.2304"
+# IMAGE_NAME = "AlxcNL/tinlab-torcs"
+# WORKSPACE = ENV["WORKSPACE"]
+CLIENT_IP = "192.168.56.20"
+
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.ssh.insert_key = "false"
+  config.ssh.forward_agent = "true"
+
+  config.vm.define "torcs-ubuntu" do |client|
+    client.vm.provider "virtualbox" do |vb|
+      vb.memory = "8192"
+      vb.cpus = 2
+      vb.gui = true
+    end
+      
+    client.vm.box = IMAGE_NAME
+    client.vm.box_version = BOX_VERSION          
+    client.vm.network "private_network", ip: CLIENT_IP
+    config.vm.network "forwarded_port", guest: 22, host: 2222
+    client.vm.hostname = "torcs-ubuntu"
+    # client.vm.synced_folder WORKSPACE, "/workspace"
+  end  
+
+  # https://developer.hashicorp.com/vagrant/docs/provisioning/ansible_intro
+  config.vm.provision "ansible" do |ansible|
+    ansible.limit = 'all'
+    ansible.playbook = "../../ansible/playbooks/playbook-torcs-server.yaml"
+    host_key_checking = "true" 
+
+    ansible.extra_vars = {
+        ansible_python_interpreter: "/usr/bin/env python3",
+        ansible_verbose: "v",
+        ansible_order: "sorted",
+    }            
+
+    ansible.groups = {
+      "clients" => ["torcs-ubuntu"],
+      "servers" => ["torcs-ubuntu"],
+      "torcs:children" => ["clients", "servers"],
+    }
+
+  end 
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.limit = 'all'
+    
+    ansible.playbook = "../../ansible/playbooks/playbook-torcs-client.yaml"
+    host_key_checking = "true" 
+
+    ansible.extra_vars = {
+        ansible_python_interpreter: "/usr/bin/env python3",
+        ansible_verbose: "v",
+        ansible_order: "sorted"
+    }            
+
+    ansible.groups = {
+      "clients" => ["torcs-ubuntu"],
+      "torcs:children" => ["clients", "servers"],
+    }
+
+  end
+
+end
