@@ -15,11 +15,22 @@
     remote_src: yes
   when: python_version.stdout != "3.10.5"
 
+## https://unix.stackexchange.com/questions/582868/warning-pip-is-configured-with-locations-that-require-tls-ssl-however-the-ssl
+#- name: Update Setup.local to enable openssl
+#  ansible.builtin.blockinfile:
+#    path: /home/{{ansible_user_id}}/Python-3.10.5/Modules/Setup.local
+#    block: |
+#      SSL=/usr/local/ssl  <--- substitute with your openssl home directory
+#      _ssl _ssl.c \
+#              -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+#              -L$(SSL)/lib -lssl -lcrypto
+
 - name: configure
   become: True
   become_method: sudo
   ansible.builtin.shell:
     cmd: ./configure
+#    cmd: ./configure --enable-optimizations CFLAGS="-O3" --prefix=/opt/primeur/
     chdir: /home/{{ansible_user_id}}/Python-3.10.5
   when: python_version.stdout != "3.10.5"
 

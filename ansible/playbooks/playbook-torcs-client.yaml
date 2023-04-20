@@ -5,6 +5,9 @@
   connection: ssh
   gather_facts: True
   roles:
+    - packages
+    - lib
+    - dist-upgrade
     - python
     - pip
-    - torcs-agent    
+    - torcs-agent
