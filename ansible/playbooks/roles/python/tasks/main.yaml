@@ -11,7 +11,9 @@
   ansible.builtin.unarchive:
     src: https://www.python.org/ftp/python/3.10.5/Python-3.10.5.tar.xz
     dest: '/home/{{ansible_user_id}}/'
+    validate_certs: False
     remote_src: yes
+  when: python_version.stdout != "3.10.5"
 
 - name: configure
   become: True
@@ -19,22 +21,26 @@
   ansible.builtin.shell:
     cmd: ./configure
     chdir: /home/{{ansible_user_id}}/Python-3.10.5
+  when: python_version.stdout != "3.10.5"
 
 - name: make
   become: True
   become_method: sudo
   community.general.make:
     chdir: /home/{{ansible_user_id}}/Python-3.10.5
-    
-- name: make install 
+  when: python_version.stdout != "3.10.5"
+
+- name: make install
   become: True
   become_method: sudo
   community.general.make:
     chdir: /home/{{ansible_user_id}}/Python-3.10.5
     target: install
+  when: python_version.stdout != "3.10.5"
 
 - name: Link python to python3
   ansible.builtin.lineinfile:
     path: /home/{{ ansible_user_id }}/.bashrc
     line: alias python=/usr/local/bin/python3
     create: yes
+  when: python_version.stdout != "3.10.5"
