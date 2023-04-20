@@ -1,4 +1,11 @@
 ---
+- name: Copy requirements.txt
+  ansible.builtin.copy:
+    src: /pip/requirements.txt
+    dest: "/home/{{ ansible_user_id }}/pip"    
+
+    mode: 'u=rwx,g+x'
+
 - name: Install python packages for torcs-agent
   ansible.builtin.pip:
-    requirements: /pip/requirements.txt      
+    requirements: "/home/{{ ansible_user_id }}/pip/requirements.txt"
