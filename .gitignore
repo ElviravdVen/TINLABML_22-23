@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 .DS_Store
 .idea/
-vagrant/.vagrant
+vagrant/.vagrant/
+.vagrant
