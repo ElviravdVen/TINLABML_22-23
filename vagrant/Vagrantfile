@@ -3,15 +3,18 @@
 
 VAGRANT_API_VERSION = "2"
 
-IMAGE_NAME = "enzzito/myxubuntu2204-gui"
-BOX_VERSION = "0.1"
+# IMAGE_NAME = "enzzito/myxubuntu2204-gui"
+# BOX_VERSION = "0.1"
+IMAGE_NAME = "gusztavvargadr/ubuntu-desktop"
+BOX_VERSION = "2004.0.2304"
 CLIENT_IP = "192.168.56.20"
+WORKSPACE = "../"
 
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.ssh.insert_key = "true"
   config.ssh.forward_agent = "true"
 
-  config.vm.define "torcs-lubuntu" do |client|
+  config.vm.define "torcs-ubuntu" do |client|
     client.vm.provider "virtualbox" do |vb|
       vb.memory = "4096"
       vb.cpus = 4
@@ -22,24 +25,27 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     client.vm.box_version = BOX_VERSION          
     client.vm.network "private_network", ip: CLIENT_IP
     config.vm.network "forwarded_port", guest: 22, host: 2222
-    client.vm.hostname = "torcs-lubuntu"
+    client.vm.hostname = "torcs-ubuntu"
+    client.vm.synced_folder WORKSPACE, "/workspace"
+
   end
 
   config.vm.provision "ansible" do |ansible|
     ansible.limit = 'all'
     ansible.playbook = "../ansible/playbooks/playbook-torcs-server.yaml"
     host_key_checking = "true"
+    ansible.compatibility_mode = "2.0"        
 
     ansible.extra_vars = {
         ansible_python_interpreter: "/usr/bin/env python3",
         ansible_verbose: "v",
-        ansible_order: "sorted",
+        ansible_order: "sorted"
     }
 
     ansible.groups = {
-      "clients" => ["torcs-lubuntu"],
-      "servers" => ["torcs-lubuntu"],
-      "torcs:children" => ["clients", "servers"],
+      "clients" => ["torcs-ubuntu"],
+      "servers" => ["torcs-ubuntu"],
+      "torcs:children" => ["clients", "servers"]
     }
 
   end
@@ -57,7 +63,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     }            
 
     ansible.groups = {
-      "clients" => ["torcs-lubuntu"],
+      "clients" => ["torcs-ubuntu"],
       "torcs:children" => ["clients", "servers"],
     }
 
