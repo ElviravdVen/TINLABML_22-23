@@ -17,15 +17,17 @@ class Link:
 
                 outNode.links.append(self)
 
-inNodes = [[Node () for column in range(side)]for row in range(side)]
+inNodes = [[Node () for column in range(side)] for row in range(side)]
+
 '''
+Bovenstaande code kan ook met de for loop uitgevoerd worden. Hieronder voor leesbaarheid.
 inNodes = []
 for rowIndex in range(side):
         row = []
         for columnIndex in range(side):
                 row.append(Node())
-        inNodes.append(row
-''')
+        inNodes.append(row)
+'''
 
 outNodes = [Node () for i in range(2)]
 
@@ -33,5 +35,4 @@ links = []
 for inRow in inNodes:
         for inNode in inRow:
                 for outNode in outNodes:
-                        links.append(Link(inNode, 
-outNode))
+                        links.append(Link(inNode, outNode))
