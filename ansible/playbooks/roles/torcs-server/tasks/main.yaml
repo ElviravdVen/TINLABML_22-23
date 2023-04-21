@@ -22,7 +22,7 @@
 - name: configure
   become: True
   ansible.builtin.shell:
-    cmd: ./configure --prefix=$(pwd)/BUILD
+    cmd: ./configure
     chdir: /home/{{ ansible_user_id }}/torcs
 
 - name: make
