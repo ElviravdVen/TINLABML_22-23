@@ -1,0 +1,8 @@
+---
+- name: Upgrade the OS (apt-get dist-upgrade)
+  become: True
+  become_method: sudo
+  apt:
+    autoremove: yes
+    upgrade: dist
+    autoclean: yes
