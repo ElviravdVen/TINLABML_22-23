@@ -1,10 +1,9 @@
 #!/usr/bin/env ansible-playbook
 ---
-# - hosts: torcs:clients
-- hosts: 127.0.0.1
+- hosts: localhost
   connection: local
   become: False
-  # connection: ssh
+
   gather_facts: True
   roles:
     - packages

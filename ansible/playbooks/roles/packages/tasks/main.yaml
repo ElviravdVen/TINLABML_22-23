@@ -14,5 +14,6 @@
     - gnupg-agent
     - nano
     - net-tools
+    - openssl
     - ovmf  
     - software-properties-common

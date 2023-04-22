@@ -8,8 +8,8 @@ SERVER_IMAGE_NAME = "gusztavvargadr/ubuntu-desktop"
 SERVER_BOX_VERSION = "2004.0.2304"
 SERVER_IP = "192.168.56.20"
 
-CLIENT_IMAGE_NAME = "ubuntu/xenial64"
-CLIENT_BOX_VERSION = "20211001.0.0"
+CLIENT_IMAGE_NAME = "generic/ubuntu2210"
+CLIENT_BOX_VERSION = "4.2.16"
 CLIENT_IP = "192.168.56.21"
 
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
@@ -18,6 +18,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   config.vm.define "torcs-server" do |server|
     server.vm.provider "virtualbox" do |vb|
+      vb.check_guest_additions = true
       vb.memory = "4096"
       vb.cpus = 4
       vb.gui = true
@@ -26,13 +27,18 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.box = SERVER_IMAGE_NAME
     server.vm.box_version = SERVER_BOX_VERSION          
     server.vm.network "private_network", ip: SERVER_IP
-    # server.vm.network "forwarded_port", guest: 22, host: 2222
     server.vm.hostname = "torcs-server"
+
+    # PROVISION
+    server.vm.provision "shell", path: "../ansible/install_ansible.sh"
+    server.vm.provision "shell", path: "../ansible/install_ansible_plugins.sh"
+    # server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
   end
 
   config.vm.define "torcs-client" do |client|
     client.vm.provider "virtualbox" do |vb|
+      vb.check_guest_additions = true
       vb.memory = "2048"
       vb.cpus = 2
       vb.gui = false
@@ -41,32 +47,14 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     client.vm.box = CLIENT_IMAGE_NAME
     client.vm.box_version = CLIENT_BOX_VERSION          
     client.vm.network "private_network", ip: CLIENT_IP
-    # config.vm.network "forwarded_port", guest: 22, host: 2223
-    client.vm.hostname = "torcs-ubuntu"
-    client.vm.provision "shell", inline: "sudo apt-add-repository ppa:ansible/ansible"
-    client.vm.synced_folder WORKSPACE, "/workspace"
-
-  end
+    client.vm.hostname = "torcs-client"
     
-  # config.vm.provision "ansible" do |ansible|
-  #   ansible.limit = 'all'
-  #   ansible.playbook = "../ansible/playbooks/playbook-torcs-server.yaml"
-  #   host_key_checking = "true"
-  #   ansible.compatibility_mode = "2.0"        
+    # PROVISION
+    client.vm.provision "shell", path: "../ansible/install_ansible.sh"
+    client.vm.provision "shell", path: "../ansible/install_ansible_plugins.sh"
+    client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
-  #   ansible.extra_vars = {
-  #       ansible_python_interpreter: "/usr/bin/env python3",
-  #       ansible_verbose: "v",
-  #       ansible_order: "sorted"
-  #   }
-
-  #   ansible.groups = {
-  #     "clients" => ["torcs-ubuntu"],
-  #     "servers" => ["torcs-ubuntu"],
-  #     "torcs:children" => ["clients", "servers"]
-  #   }
-
-  # end
+  end    
 
   # config.vm.provision "ansible" do |ansible|
   #   ansible.limit = 'all'
