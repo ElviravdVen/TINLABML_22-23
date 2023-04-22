@@ -1,11 +1,7 @@
 #!/usr/bin/env ansible-playbook
 ---
-# - hosts: torcs:servers
-- hosts: 127.0.0.1
+- hosts: localhost
   connection: local
-  become: True
-  become_method: sudo
-  # connection: ssh
   gather_facts: True
   roles:
     - time-and-locale
@@ -16,11 +12,5 @@
     - packages
     - lib
     - dist-upgrade
-
-- hosts: 127.0.0.1
-  connection: local
-#  connection: ssh
-  gather_facts: True
-  roles:
     - plib
     - torcs-server

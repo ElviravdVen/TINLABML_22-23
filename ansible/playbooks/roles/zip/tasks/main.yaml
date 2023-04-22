@@ -1,5 +1,7 @@
 ---
 - name: Install zip and unzip
+  become: True
+  become_method: sudo
   package:
     name: "{{ packages }}"
     state: present

@@ -1,5 +1,7 @@
 ---
 - name: Install gcc
+  become: True
+  become_method: sudo
   package:
     name: "{{ packages }}"
     state: present
@@ -10,6 +12,8 @@
       - cmake
 
 - name: Install build-essential
+  become: True
+  become_method: sudo
   apt:
     name: "{{ packages }}"
     state: present
@@ -21,6 +25,8 @@
     ansible_distribution in ("Ubuntu", "Linux Mint", "Pop!_OS")
 
 - name: Install the Development tools
+  become: True
+  become_method: sudo
   ansible.builtin.dnf:
     name: '@Development tools'
     state: present
@@ -30,4 +36,6 @@
   shell: gcc --version
 
 - name: Link to the new location of the file 'vmlinux.xz'
+  become: True
+  become_method: sudo
   shell: ln -sf /usr/lib/modules/$(uname -r)/vmlinux.xz /boot/
