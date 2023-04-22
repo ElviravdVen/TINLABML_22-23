@@ -1,6 +1,3 @@
-torcs-server ansible_port=22 ansible_user=vagrant
-torcs-client ansible_port=22 ansible_user=vagrant
-
 [servers]
 torcs-server
 
