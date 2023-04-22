@@ -132,3 +132,5 @@ dmypy.json
 vagrant/.vagrant
 vagrant/torcs-server.box
 opdrachten/groepsopdracht_final_torcs/.vagrant/
+vagrant/.vagrant/
+.vagrant
