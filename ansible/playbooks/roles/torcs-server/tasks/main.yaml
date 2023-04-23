@@ -7,6 +7,7 @@
       export CFLAGS='-fPIC'
       export CPPFLAGS='\$CFLAGS'
       export CXXFLAGS='\$CFLAGS'
+      cd /vagrant
 
 - name: Check if torcs directory exists
   stat:
