@@ -313,6 +313,12 @@ Install [VirtualBox](https://www.virtualbox.org/)
 
 <li>
 
+Install [VirtualBox 7.0.8 Oracle VM VirtualBox Extension Pack](https://www.virtualbox.org/wiki/Downloads?ref=vnxi.net)
+
+</li>
+
+<li>
+
 Install [Vagrant](https://www.vagrantup.com/)
 
 </li>
@@ -322,3 +328,15 @@ Install [Vagrant](https://www.vagrantup.com/)
 </li>
 
 </ol>
+
+## Torcs
+
+### Torcs Server
+
+<p>Torcs Server is available in a Ubuntu VirtualBox provisioned by Vagrant</p>
+
+In <i>opdrachten\groepsopdracht_final_torcs</i> run 
+
+``bash
+./start_vbox.sh
+``

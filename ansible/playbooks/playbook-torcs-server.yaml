@@ -13,4 +13,6 @@
     - lib
     - dist-upgrade
     - plib
+    - zsh
+    - oh-my-zsh
     - torcs-server

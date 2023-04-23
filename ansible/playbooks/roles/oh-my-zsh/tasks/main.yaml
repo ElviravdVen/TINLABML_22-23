@@ -1,0 +1,41 @@
+---
+- name: Check if oh-my-zsh exists
+  stat:
+    path: '{{ ansible_env.HOME }}/.oh-my-zsh'
+  register: oh_my_zsh
+  
+- name: Check if zsh exists
+  stat:
+    path: /bin/zsh    
+  register: zsh
+
+- name: Copy install oh-my-zsh script
+  ansible.builtin.copy:
+    src: sh/install_oh_my_zsh.sh
+    dest: /tmp/install_oh_my_zsh.sh
+    mode: 'u=rwx,g+x'
+  when: zsh.stat.exists == true and oh_my_zsh.stat.exists == false
+
+- name: Run install oh-my-zsh script
+  shell: /tmp/install_oh_my_zsh.sh
+  when: zsh.stat.exists == true and oh_my_zsh.stat.exists == false
+
+- name: Replace zsh theme
+  vars:
+    theme: 'geoffgarside'
+  ansible.builtin.replace:
+    path: '{{ ansible_env.HOME }}/.zshrc'
+    regexp: '(ZSH_THEME=).*'
+    replace: 'ZSH_THEME="geoffgarside"'
+  notify: 
+    Activate zsh settings
+
+- name: Add zsh plugins
+  vars:
+    plugins: "ansible cp dnf docker docker-compose git git-flow helm httpie kubectl mvn ng npm node python pip pyenv vagrant vscode"
+  ansible.builtin.replace:
+    path: '{{ ansible_env.HOME }}/.zshrc'
+    regexp: '(plugins=).*'
+    replace: '\1({{ plugins }})'
+  notify: 
+    Activate zsh settings 

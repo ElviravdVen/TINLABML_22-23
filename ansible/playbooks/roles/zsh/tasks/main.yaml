@@ -1,0 +1,33 @@
+---
+- name: Check if zsh exists
+  stat:
+    path: /bin/zsh    
+  register: zsh
+
+- name: Install zsh
+  become: True
+  become_method: sudo
+  package:
+    name: zsh
+    state: present
+    update_cache: "yes"
+  when: zsh.stat.exists == false
+
+- name: Retrieve zsh-autosuggestions for Fedora
+  shell: dnf config-manager --add-repo dnf config-manager --add-repo https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Fedora_35/shells:zsh-users:zsh-autosuggestions.repo
+  when: ansible_distribution == 'Fedora'
+
+- name: Retrieve zsh-autosuggestions for Ubuntu
+  shell: '/home/{{ansible_user_id}}/ansible/install_zsh.sh'
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install zsh-autosuggestions
+  become: True
+  become_method: sudo
+  package: 
+    name: zsh-autosuggestions
+
+- name: Make zsh the default shell
+  become: True
+  become_method: sudo
+  shell: chsh -s $(which zsh)

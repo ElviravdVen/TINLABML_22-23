@@ -7,6 +7,7 @@
       export CFLAGS='-fPIC'
       export CPPFLAGS='\$CFLAGS'
       export CXXFLAGS='\$CFLAGS'
+      cd /vagrant
 
 - name: Check if torcs directory exists
   stat:
@@ -19,24 +20,37 @@
     dest: "/home/{{ ansible_user_id }}/torcs"
   when: torcs_dir.stat.exists == false
 
-- name: configure
+- name: configure torcs-server
   become: True
   ansible.builtin.shell:
     cmd: ./configure
     chdir: /home/{{ ansible_user_id }}/torcs
 
-- name: make
+- name: make torcs-server
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/torcs
     
-- name: make install 
+- name: make install torcs-server
   become: True
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/torcs
     target: install
 
-- name: make datainstall
+- name: make datainstall torcs-server
   become: True
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/torcs
     target: datainstall
+
+# https://github.com/abhisheknaik96/MultiAgentTORCS
+
+- name: Unarchive scr-client-cpp.tgz
+  ansible.builtin.unarchive:
+    src: tar/scr-client-cpp.tgz
+    dest: '/home/{{ansible_user_id}}/torcs'
+
+- name: make client scr-client-cpp
+  community.general.make:
+    chdir: /home/{{ ansible_user_id }}/torcs/scr-client-cpp
+    params:
+      NUM_THREADS: 4
