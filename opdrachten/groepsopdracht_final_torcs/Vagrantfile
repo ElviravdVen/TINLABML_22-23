@@ -5,7 +5,7 @@ VAGRANT_API_VERSION = "2"
 WORKSPACE = "."
 
 SERVER_IMAGE_NAME = "AlxcNL/torcs-server"
-SERVER_BOX_VERSION = "0.1"
+SERVER_BOX_VERSION = "0.2"
 SERVER_IP = "192.168.56.20"
 
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
