@@ -190,13 +190,13 @@ Run the following command and add it to your <i>.bashrc</i> or <i>.zshrc</i> to 
 in Windows
 
 ```sh
-venv\Scripts\activate.bat
+tinlab/Scripts/activate.bat
 ```
 
 in MacOS
 
 ```sh
-source myvenv/bin/activate
+source tinlab/bin/activate
 ```
 
 </li>
@@ -257,7 +257,7 @@ code .
 
 <li>
 
-Python extension(https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+[Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
 <li>
 
