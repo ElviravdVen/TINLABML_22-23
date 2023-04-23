@@ -7,7 +7,7 @@
 
 - name: Git checkout scr.torcs
   ansible.builtin.git:
-    repo: https://github.com/vog3lm/scr.torcs
+    repo: https://github.com/abhisheknaik96/MultiAgentTORCS.git
     dest: "/home/{{ ansible_user_id }}/scr.torcs"
   when: scr_torcs_dir.stat.exists == false
 

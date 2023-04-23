@@ -11,7 +11,7 @@
   ansible.builtin.unarchive:
     src: https://www.python.org/ftp/python/3.10.5/Python-3.10.5.tar.xz
     dest: '/home/{{ansible_user_id}}/'
-    validate_certs: False
+    validate_certs: True
     remote_src: yes
   when: python_version.stdout != "3.10.5"
 
