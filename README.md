@@ -257,7 +257,7 @@ code .
 
 <li>
 
-Python extension(https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+[Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
 <li>
 
