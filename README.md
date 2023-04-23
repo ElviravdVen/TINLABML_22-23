@@ -281,6 +281,12 @@ code .
 
 <li>
 
+[Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
+</li>
+
+<li>
+
 [Mermaid extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
 
 </li>
@@ -331,12 +337,74 @@ Install [Vagrant](https://www.vagrantup.com/)
 
 ## Torcs
 
-### Torcs Server
+<p>A preinstalled Torcs Environment is available as a [VirtualBox provisioned by Vagrant](https://app.vagrantup.com/AlxcNL/boxes/torcs-server/versions/0.2)</p>
 
-<p>Torcs Server is available in a Ubuntu VirtualBox provisioned by Vagrant</p>
+<ol>
 
-In <i>opdrachten\groepsopdracht_final_torcs</i> run 
+<li>
 
-``bash
+**Spin up a Virtual Ubuntu Desktop Environment**
+
+<p>In <i>opdrachten/groepsopdracht_final_torcs</i> run 
+
+```sh
 ./start_vbox.sh
-``
+```
+</p>
+
+</li>
+
+<li>
+
+**Login**
+
+<p>
+
+Enter the Ubuntu Virtual Machine (VM) and login with password <i>vagrant</i><br>
+To <strong>escape</strong> from the VM press 
+<ul>
+
+<li>Right Control Key (Windows)</li>
+
+<li>Left Control Key (MacOS)</li>
+
+</ul>
+
+</p>
+
+</li>
+
+<li>
+
+**Start Torcs Server**
+
+<p>Open a terminal and enter
+
+```sh
+/vagrant/start_server.sh
+```
+
+In the Torcs GUI select 
+<i>Race</i> -> <i>Quick Race</i> -> <i>New Race</i>
+
+</p>
+
+</li>
+
+**Test with Torcs Client**
+
+<p>Open a second terminal(tab) and enter
+
+```sh
+/vagrant/start_client.sh
+```
+
+you will now see an autonomous racing car in the Torcs GUI.
+
+</li>
+
+</ol>
+
+</li>
+
+</ul>
