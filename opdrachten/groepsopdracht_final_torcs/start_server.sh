@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-torcs
+(cde $HOME/torcs; torcs)
