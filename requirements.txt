@@ -1,5 +1,3 @@
-ansible
-elo
 flask
 flask-socketio      
 getopts
@@ -26,12 +24,9 @@ scikit-image
 scikit-learn 
 scipy
 seaborn 
-setuptools==57.5
+setuptools==67
 spacy
 statsmodels 
 sympy
 tensorflow
-torch
-torchaudio
-torchvision
 widgetsnbextension
