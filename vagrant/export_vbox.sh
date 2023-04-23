@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-vagrant package torcs-server --output "AlxcNL/torcs-server"
+boxname="torcs-server"
+
+vagrant package ${boxname} --output ${boxname}
+md5sum "${boxname}.box"
