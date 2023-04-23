@@ -259,9 +259,23 @@ code .
 
 [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
+</li>
+
+<li>
+
+[Black formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
+
+</li>
+
 <li>
 
 [Git Easy extension](https://marketplace.visualstudio.com/items?itemName=bibhasdn.git-easy)
+
+</li>
+
+<li>
+
+[Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)
 
 </li>
 
