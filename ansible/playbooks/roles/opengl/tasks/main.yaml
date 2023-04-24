@@ -1,0 +1,16 @@
+---
+- name: Install OpenGL
+  become: True
+  become_method: sudo
+  package:
+    name: "{{ packages }}"
+    state: present
+    update_cache: "yes"
+  vars:
+    packages:
+      - freeglut3 
+      - freeglut3-dev    
+      - libgl1-mesa-glx
+      - vorbis-tools
+      - libvorbis-dev
+      - xautomation

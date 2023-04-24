@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANT_API_VERSION = "2"
+WORKSPACE = "."
+
+SERVER_IMAGE_NAME = "AlxcNL/torcs-server"
+SERVER_BOX_VERSION = "0.2"
+SERVER_IP = "192.168.56.20"
+
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.ssh.insert_key = "true"
+  config.ssh.forward_agent = "true"
+
+  config.vm.define "torcs-server" do |server|
+    server.vm.provider "virtualbox" do |vb|
+      vb.check_guest_additions = true
+      vb.memory = "4096"
+      vb.cpus = 4
+      vb.gui = true
+    end
+      
+    server.vm.box = SERVER_IMAGE_NAME
+    server.vm.box_version = SERVER_BOX_VERSION          
+    server.vm.network "private_network", ip: SERVER_IP
+    server.vm.hostname = "torcs-server"
+    server.vm.synced_folder WORKSPACE, "/vagrant"       
+
+  end
+
+end

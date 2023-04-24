@@ -1,0 +1,22 @@
+---
+# https://github.com/vog3lm/scr.torcs
+- name: Check if scr.torcs directory exists
+  stat:
+    path: "/home/{{ ansible_user_id }}/scr.torcs"
+  register: scr_torcs_dir
+
+- name: Git checkout scr.torcs
+  ansible.builtin.git:
+    repo: https://github.com/abhisheknaik96/MultiAgentTORCS.git
+    dest: "/home/{{ ansible_user_id }}/scr.torcs"
+  when: scr_torcs_dir.stat.exists == false
+
+- name: Copy requirements.txt
+  ansible.builtin.copy:
+    src: pip/requirements.txt
+    dest: "/home/{{ ansible_user_id }}/scr.torcs/requirements.txt"
+    mode: 'u=rwx,g+x'
+
+- name: Install python packages for torcs-agent
+  shell:
+    pip install --upgrade pip -r "/home/{{ ansible_user_id }}/scr.torcs/requirements.txt"

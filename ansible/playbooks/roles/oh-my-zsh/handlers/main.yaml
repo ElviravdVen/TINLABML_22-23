@@ -1,0 +1,3 @@
+---
+- name: Activate zsh settings
+  shell: zsh ~/.zshrc

@@ -1,0 +1,8 @@
+---
+- name: Install Git
+  become: True
+  become_method: sudo
+  package:
+    name: git
+    state: present
+    update_cache: "yes"

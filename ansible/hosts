@@ -1,0 +1,12 @@
+[servers]
+torcs-server
+
+[clients]
+torcs-client
+
+[torcs:children]
+clients
+servers
+
+[local]
+localhost

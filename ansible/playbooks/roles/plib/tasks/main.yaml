@@ -1,0 +1,14 @@
+---
+- name: Install plib
+  become: True
+  become_method: sudo
+  package:
+    name: "{{ packages }}"
+    state: present
+    update_cache: "yes"
+  vars:
+    packages:
+      - libxmu6 
+      - libxmu-dev
+      - libxi-dev
+      - libplib-dev
