@@ -11,12 +11,23 @@
     dest: "/home/{{ ansible_user_id }}/scr.torcs"
   when: scr_torcs_dir.stat.exists == false
 
-- name: Copy requirements.txt
-  ansible.builtin.copy:
-    src: pip/requirements.txt
-    dest: "/home/{{ ansible_user_id }}/scr.torcs/requirements.txt"
-    mode: 'u=rwx,g+x'
+- name: Create virtual Python environment
+  shell: python3 -m venv "/home/{{ ansible_user_id }}/venv"
 
-- name: Install python packages for torcs-agent
-  shell:
-    pip install --upgrade pip -r "/home/{{ ansible_user_id }}/scr.torcs/requirements.txt"
+- name: Activate virtual Python environment
+  shell: "source /home/{{ ansible_user_id }}/venv/bin/activate"
+
+# - name: Copy requirements.txt
+#   ansible.builtin.copy:
+#     src: pip/requirements.txt
+#     dest: "/home/{{ ansible_user_id }}/scr.torcs/requirements.txt"
+#     mode: 'u=rwx,g+x'
+
+- name: Install specified python requirements
+  ansible.builtin.pip:
+    name: numpy
+
+# - name: Install python packages for torcs-agent
+#   shell:
+#     # pip install --upgrade pip -r "/home/{{ ansible_user_id }}/scr.torcs/requirements.txt"
+#     pip install --upgrade pip
