@@ -1,8 +1,10 @@
-[servers]
-torcs-server
+torcs-ubuntu ansible_port=22 ansible_user=vagrant
 
 [clients]
-torcs-client
+debian
+
+[servers]
+debian
 
 [torcs:children]
 clients
