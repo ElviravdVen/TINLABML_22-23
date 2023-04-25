@@ -15,6 +15,7 @@ numpy
 pandas
 pickle4
 ptpython
+ptpython
 pydoc-utils
 pynput    
 pyopengl 
