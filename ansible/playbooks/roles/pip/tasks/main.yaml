@@ -11,9 +11,9 @@
   ansible.builtin.shell:
     cmd: export PATH=$PATH:/home/vagrant/.local/bin 
 
-- name: Update PATH in .bashrc
+- name: Update PATH in .zshrc
   ansible.builtin.lineinfile:
-    path: /home/{{ ansible_user_id }}/.bashrc
+    path: /home/{{ansible_user_id}}/.zshrc
     line: export PATH=$PATH:/home/vagrant/.local/bin 
     create: yes
 

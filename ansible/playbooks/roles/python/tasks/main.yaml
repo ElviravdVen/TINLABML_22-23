@@ -38,9 +38,9 @@
     target: install
   when: python_version.stdout != "3.10.5"
 
-- name: Link python to python3
+- name: Create alias to python 3.10.5
   ansible.builtin.lineinfile:
-    path: /home/{{ ansible_user_id }}/.bashrc
-    line: alias python=/usr/local/bin/python3
+    path: /home/{{ansible_user_id}}/.zshrc
+    line: alias python=/home/{{ansible_user_id}}/Python-3.10.5/python
     create: yes
   when: python_version.stdout != "3.10.5"

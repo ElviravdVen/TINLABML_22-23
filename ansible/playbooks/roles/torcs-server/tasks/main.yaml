@@ -2,7 +2,7 @@
 ---
 - name: Update bashrc for plib
   ansible.builtin.blockinfile:
-    path: /home/{{ ansible_user_id }}/.bashrc
+    path: /home/{{ ansible_user_id }}/.zshrc
     block: | 
       export CFLAGS='-fPIC'
       export CPPFLAGS='\$CFLAGS'
