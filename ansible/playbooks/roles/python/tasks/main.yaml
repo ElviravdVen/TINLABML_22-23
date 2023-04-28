@@ -43,3 +43,5 @@
     path: /home/{{ansible_user_id}}/.zshrc
     line: alias python=/home/{{ansible_user_id}}/Python-3.10.5/python
     state: present
+
+# sudo cp ./python /usr/bin/     

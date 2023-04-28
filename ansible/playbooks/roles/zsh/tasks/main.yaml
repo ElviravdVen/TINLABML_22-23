@@ -27,3 +27,5 @@
   become: True
   become_method: sudo
   shell: chsh -s $(which zsh)
+  notify:
+    Activate zsh
