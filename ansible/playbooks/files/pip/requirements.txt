@@ -1,12 +1,14 @@
-setuptools==67.7.0
 Flask
 Flask-SocketIO
 getopts
+gym
 gymnasium
 inputs
 json3
+lxml
 numpy==1.24.2
 pydoc-utils
 pynput
 pyyaml
-lxml
+setuptools==67.7.0
+tensorflow
