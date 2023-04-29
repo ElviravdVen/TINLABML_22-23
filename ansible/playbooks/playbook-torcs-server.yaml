@@ -5,14 +5,14 @@
   become: False
   gather_facts: True
   roles:
-    # - time-and-locale
-    # - zsh
-    # - gcc
-    # - git
-    # - opengl
-    # - zip
-    # - dist-upgrade
-    # - packages
-    # - lib
-    # - plib
+    - time-and-locale
+    - zsh
+    - gcc
+    - git
+    - opengl
+    - zip
+    - dist-upgrade
+    - packages
+    - lib
+    - plib
     - torcs-server
