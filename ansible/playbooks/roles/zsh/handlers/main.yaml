@@ -1,3 +1,0 @@
----
-- name: Activate zsh
-  shell: zsh

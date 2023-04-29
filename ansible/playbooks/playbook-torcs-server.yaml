@@ -2,17 +2,17 @@
 ---
 - hosts: localhost
   connection: local
+  become: False
   gather_facts: True
   roles:
-    - time-and-locale
-    - gcc
-    - git
-    - opengl
-    - zip
-    - packages
-    - lib
-    - dist-upgrade
-    - plib
-    - zsh
-    # - oh-my-zsh
+    # - time-and-locale
+    # - zsh
+    # - gcc
+    # - git
+    # - opengl
+    # - zip
+    # - dist-upgrade
+    # - packages
+    # - lib
+    # - plib
     - torcs-server

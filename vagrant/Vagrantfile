@@ -30,11 +30,14 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.hostname = "torcs-server"
 
     # PROVISION
-    server.vm.provision "shell", path: "../ansible/install_ansible.sh"
-    server.vm.provision "shell", path: "../ansible/install_ansible_plugins.sh"
-    # server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
-
-  end
+    server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
+    server.vm.provision "shell", inline: "cp /home/vagrant/ansible/png/torcs1.png /home/vagrant/Pictures/"
+    server.vm.provision "shell", path: "../ansible/sh/install_python.sh"
+    server.vm.provision "shell", path: "../ansible/sh/install_ansible.sh"
+    server.vm.provision "shell", path: "../ansible/sh/install_ansible_plugins.sh"
+    server.vm.provision "shell", inline: "/home/vagrant/ansible/playbooks/playbook-torcs-server.yaml"
+    
+  end  
 
   config.vm.define "torcs-client" do |client|
     client.vm.provider "virtualbox" do |vb|
