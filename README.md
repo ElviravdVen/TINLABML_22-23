@@ -131,10 +131,15 @@ In order to commit and push your changes, you need identitify yourself.
 Run the following commands from your TINLABML_22-23 directory with your own github username and email address:
 
 ```sh
-git config user.name <github_username>
-git config user.email <student@hr.nl>
+git config user.name "github_username"
+git config user.email "student@hr.nl"
 ```
 
+Once done, you can confirm that the information is set by running (see the last two lines):
+
+```sh
+git config --list
+```
 </li>
 
 <li>
