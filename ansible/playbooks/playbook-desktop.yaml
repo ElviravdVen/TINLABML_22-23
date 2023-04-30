@@ -1,0 +1,10 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: local
+  become: False
+  connection: local
+  gather_facts: True
+  roles:
+    - ubuntu-desktop
+    - vnc-server
+    - codec-and-tweaks

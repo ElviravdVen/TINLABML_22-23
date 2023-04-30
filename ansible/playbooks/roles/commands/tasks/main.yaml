@@ -1,33 +1,24 @@
 ---
-- name: Install command add_dir
+- name: Install commands
+  become: True
+  become_method: sudo
   ansible.builtin.copy:
-    src: commands/add_dir
-    dest: /usr/bin/add_dir
+    src: "files/commands/{{ item }}"
+    dest: "/usr/bin/item"
     mode: '+x'
+  loop:
+     - add_dir
+     - add_user2group
 
-- name: Install command clean_docker_artifacts
-  ansible.builtin.copy:
-    src: commands/clean_docker_artifacts
-    dest: /usr/bin/clean_docker_artifacts
-    mode: '+x'
-
-- name: Install command add_user2group
-  ansible.builtin.copy:
-    src: commands/add_user2group.sh
-    dest: /usr/bin/add_user2group
-    mode: '+x'
-
-- name: Install command execute
-  ansible.builtin.copy:
-    src: commands/execute.sh
-    dest: /usr/bin/execute
-    mode: '+x'
-
-- name: stat /usr/bin/cls 
-  stat: 
-    path: /usr/bin/cls
-  register: cls
-
-- name: Create alias 'cls' for command 'clear'
-  shell: ln -s $(which clear) /usr/bin/cls        
-  when: not cls.stat.exists
+#- name: stat /usr/bin/cls
+#  become: True
+#  become_method: sudo
+#  stat:
+#    path: /usr/bin/cls
+#  register: cls
+#
+#- name: Create alias 'cls' for command 'clear'
+#  become: True
+#  become_method: sudo
+#  shell: ln -s $(which clear) /usr/bin/cls
+#  when: not cls.stat.exists

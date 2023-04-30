@@ -1,0 +1,10 @@
+---
+- name: Install codecs for various media files
+  package:
+    name: ubuntu-restricted-extras
+    state: latest
+
+- name: Install gnome tweaks
+  package:
+    name: gnome-tweaks
+    state: latest    

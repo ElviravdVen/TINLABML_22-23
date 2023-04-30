@@ -1,0 +1,34 @@
+---
+- name: Enable X11 Forwarding
+  become: True
+  become_method: sudo
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: X11Forwarding yes
+
+# https://vitux.com/ubuntu-vnc-server/
+- name: Install tightvncserver
+  become: True
+  become_method: sudo
+  package:
+    name: "{{ packages }}"
+    state: present
+    update_cache: "yes"
+  vars:
+    packages:
+    - xfce4-goodies
+    - tightvncserver
+
+- name: Ensure group "viewers" exists
+  ansible.builtin.group:
+    name: viewers
+    state: present
+
+- name: Add the non-root user 'viewer'
+  ansible.builtin.user:
+    name: viewer
+    shell: /bin/bash
+    comment: VNC Viewer
+    groups: viewers
+    create_home: yes
+    password_expire_max: 10
