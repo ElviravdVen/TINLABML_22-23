@@ -10,15 +10,15 @@
      - add_dir
      - add_user2group
 
-#- name: stat /usr/bin/cls
-#  become: True
-#  become_method: sudo
-#  stat:
-#    path: /usr/bin/cls
-#  register: cls
-#
-#- name: Create alias 'cls' for command 'clear'
-#  become: True
-#  become_method: sudo
-#  shell: ln -s $(which clear) /usr/bin/cls
-#  when: not cls.stat.exists
+- name: stat /usr/bin/cls
+  become: True
+  become_method: sudo
+  stat:
+    path: /usr/bin/cls
+  register: cls
+
+- name: Create alias 'cls' for command 'clear'
+  become: True
+  become_method: sudo
+  shell: ln -s $(which clear) /usr/bin/cls
+  when: not cls.stat.exists
