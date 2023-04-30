@@ -1,14 +1,9 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: torcs:clients
-  connection: ssh
+- hosts: localhost
+  connection: local
   become: False
-
   gather_facts: True
   roles:
-    # - packages
-    # - lib
-    # - dist-upgrade
-    - python
-    - pip
+    - commands
     - torcs-agent

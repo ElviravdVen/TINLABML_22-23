@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+function execute {
+    cmd="$1"
+    eval "$cmd"
+}
+
+function make_directory {
+  dir=$1
+
+  [[ -d "${dir}" && ! -L "${dir}" ]] || {
+      cmd_mkdir="mkdir \"$dir\""
+      execute "$cmd_mkdir"
+      cmd_chown="chown ${USER} '$dir'"
+      execute "$cmd_chown"
+  }
+}
+
+argument_values=("$@")
+nr_of_arguments=${#argument_values[@]}
+
+if [ $nr_of_arguments -lt 1 ]; then
+    echo "USAGE: add_dir [PATH] [dir 0] [dir i] .. [dir N]"
+    exit 1;
+fi
+
+# No path specified    
+if [ $nr_of_arguments -eq 1 ]; then
+    cmd_path='.'
+    first_dir=0
+else
+    cmd_path="${argument_values[0]}"
+    first_dir=1
+fi
+
+for ((i=${first_dir};i<=nr_of_arguments;i++)); do
+    dir="${argument_values[i]}"
+    head=$(echo "$dir" | xargs -I% basename %)
+
+    if [ -n "$head" ]; then
+        tail=$(echo "$dir" | sed -E "s/$head//")
+        dir="${cmd_path}/${head}"
+        make_directory "$dir"
+
+    fi
+
+    if [ -n "$tail" ]; then
+        tail=$(echo "$tail" | sed s/\\///)
+        cmd_recursive="add_dir '$dir' '$tail'"
+        eval "$cmd_recursive"
+    fi
+
+done

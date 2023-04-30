@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+argument_values=("$@")
+nr_of_arguments=${#argument_values[@]}
+
+if ((nr_of_arguments < 2)) 
+then
+    printf "USAGE: %s user group\n" "$0"
+else     
+    user="$1"
+    group="$2"
+
+    sudo gpasswd -a ${user} ${group}
+    getent group ${group}
+    newgrp ${group}
+    groups
+    id ${user}
+
+fi
