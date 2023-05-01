@@ -6,6 +6,7 @@
   gather_facts: True
   roles:
     - time-and-locale
+    - commands
     - zsh
     - gcc
     - git
@@ -15,4 +16,4 @@
     - packages
     - lib
     - plib
-    - torcs-server
+    - torcs-scr

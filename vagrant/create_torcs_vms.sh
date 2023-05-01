@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
-# export WORKSPACE=$PWD
+machines=("torcs-server" "torcs-client")
 
-echo "Create VM"
-vagrant up --provider=virtualbox --no-provision --parallel && vagrant status
+printf "Create VMs %s and %s" "${machines[0]}" "${machines[0]}"
+vagrant up --provider=virtualbox --no-provision "${machines[0]}" \
+    && vagrant status "${machines[0]}"
+vagrant up --provider=virtualbox --no-provision "${machines[1]}" \
+     && vagrant status "${machines[1]}"
 
-echo "Provision VM"
-vagrant provision
+printf "Provision VM" "${machines[0]}"
+vagrant provision "${machines[0]}"
+
+printf "Provision VM" "${machines[1]}"
+vagrant provision ${machines[1]}

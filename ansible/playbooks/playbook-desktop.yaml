@@ -1,8 +1,8 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: local
-  become: False
+- hosts: localhost
   connection: local
+  become: False
   gather_facts: True
   roles:
     - ubuntu-desktop

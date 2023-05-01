@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   config.vm.define "torcs-server" do |server|
     server.vm.provider "virtualbox" do |vb|
-      vb.check_guest_additions = true
+      vb.check_guest_additions = false
       vb.memory = "4096"
       vb.cpus = 4
       vb.gui = true
@@ -28,20 +28,21 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.box_version = SERVER_BOX_VERSION          
     server.vm.network "private_network", ip: SERVER_IP
     server.vm.hostname = "torcs-server"
+    server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
     # PROVISION
-    server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
-    server.vm.provision "shell", inline: "cp /home/vagrant/ansible/png/torcs1.png /home/vagrant/Pictures/"
+    server.vm.provision "shell", inline: "cp /home/vagrant/ansible/png/torcs1.png /home/vagrant/"
     server.vm.provision "shell", path: "../ansible/sh/install_python.sh"
     server.vm.provision "shell", path: "../ansible/sh/install_ansible.sh"
     server.vm.provision "shell", path: "../ansible/sh/install_ansible_plugins.sh"
     server.vm.provision "shell", inline: "/home/vagrant/ansible/playbooks/playbook-torcs-server.yaml"
+    server.vm.provision "shell", inline: "/home/vagrant/ansible/playbooks/playbook-desktop.yaml"
     
   end  
 
   config.vm.define "torcs-client" do |client|
     client.vm.provider "virtualbox" do |vb|
-      vb.check_guest_additions = true
+      vb.check_guest_additions = false
       vb.memory = "2048"
       vb.cpus = 2
       vb.gui = false
@@ -53,8 +54,8 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     client.vm.hostname = "torcs-client"
     
     # PROVISION
-    client.vm.provision "shell", path: "../ansible/install_ansible.sh"
-    client.vm.provision "shell", path: "../ansible/install_ansible_plugins.sh"
+    client.vm.provision "shell", path: "../ansible/sh/install_ansible.sh"
+    client.vm.provision "shell", path: "../ansible/sh/install_ansible_plugins.sh"
     client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
   end    
