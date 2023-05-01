@@ -59,23 +59,4 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   end    
 
-  # config.vm.provision "ansible" do |ansible|
-  #   ansible.limit = 'all'
-    
-  #   ansible.playbook = "../ansible/playbooks/playbook-torcs-client.yaml"
-  #   host_key_checking = "false"
-
-  #   ansible.extra_vars = {
-  #       ansible_python_interpreter: "/usr/bin/env python3",
-  #       ansible_verbose: "v",
-  #       ansible_order: "sorted"
-  #   }            
-
-  #   ansible.groups = {
-  #     "clients" => ["torcs-ubuntu"],
-  #     "torcs:children" => ["clients", "servers"],
-  #   }
-
-  # end
-
 end
