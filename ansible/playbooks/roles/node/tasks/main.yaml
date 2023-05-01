@@ -1,0 +1,12 @@
+---
+- name: Install nodejs
+  ansible.builtin.apt:
+    name: nodejs
+    state: present
+    update_cache: "yes"
+
+- name: Install npm
+  ansible.builtin.apt:
+    name: npm
+    state: present
+    update_cache: "yes"    

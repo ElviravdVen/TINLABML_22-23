@@ -5,5 +5,14 @@
   become: False
   gather_facts: True
   roles:
+    - time-and-locale
     - commands
-    - torcs-agent
+    - zsh
+    - gcc
+    - git
+    - zip
+    - dist-upgrade
+    - packages
+    - lib
+    - node
+    - torcs-agents
