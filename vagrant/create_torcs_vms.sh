@@ -2,14 +2,13 @@
 
 machines=("torcs-server" "torcs-client")
 
-printf "Create VMs %s and %s" "${machines[0]}" "${machines[0]}"
-vagrant up --provider=virtualbox --no-provision "${machines[0]}" \
-    && vagrant status "${machines[0]}"
-vagrant up --provider=virtualbox --no-provision "${machines[1]}" \
-     && vagrant status "${machines[1]}"
+for machine in "${machines[@]}"
+do
+    printf "Create VM %s" "${machines[i]}\n"
+    vagrant up --provider=virtualbox --no-provision "${machines[i]}" \
+        && vagrant status "${machines[i]}"
 
-printf "Provision VM" "${machines[0]}"
-vagrant provision "${machines[0]}"
+    printf "Provision VM" "${machines[i]}\n"
+    vagrant provision "${machines[i]}"
 
-printf "Provision VM" "${machines[1]}"
-vagrant provision ${machines[1]}
+done
