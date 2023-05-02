@@ -2,6 +2,11 @@
 
 # https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 
+if type -p "python" && [ -f /usr/bin/python ]; then
+    echo "Python 3 already installed"
+    exit 0;
+fi
+
 echo "Install software-properties-common"
 apt install software-properties-common 
 
