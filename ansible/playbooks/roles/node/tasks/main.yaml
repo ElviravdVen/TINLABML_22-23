@@ -1,12 +1,12 @@
 ---
-- name: Install nodejs
-  ansible.builtin.apt:
-    name: nodejs
+- name: Install nodejs and npm
+  become: True
+  become_method: sudo
+  apt:
+    name: "{{ packages }}"
     state: present
     update_cache: "yes"
-
-- name: Install npm
-  ansible.builtin.apt:
-    name: npm
-    state: present
-    update_cache: "yes"    
+  vars:
+    packages:
+    - nodejs
+    - npm
