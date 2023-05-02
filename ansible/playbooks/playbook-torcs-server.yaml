@@ -14,6 +14,7 @@
     - zip
     - dist-upgrade
     - packages
+    - vnc-server
     - lib
     - plib
-    - torcs-scr
+    - torcs-scr    
