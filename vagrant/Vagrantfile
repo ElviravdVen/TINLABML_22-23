@@ -8,13 +8,13 @@ SERVER_IMAGE_NAME = "gusztavvargadr/ubuntu-desktop"
 SERVER_BOX_VERSION = "2004.0.2304"
 SERVER_IP = "192.168.56.20"
 
-CLIENT_IMAGE_NAME = "generic/ubuntu2210"
-CLIENT_BOX_VERSION = "4.2.16"
+CLIENT_IMAGE_NAME = "gusztavvargadr/ubuntu-server"
+CLIENT_BOX_VERSION = "2004.0.2304"
 CLIENT_IP = "192.168.56.21"
 
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
-  config.ssh.insert_key = "true"
-  config.ssh.forward_agent = "true"
+  config.ssh.insert_key = true
+  config.ssh.forward_agent = true
 
   config.vm.define "torcs-server" do |server|
     server.vm.provider "virtualbox" do |vb|
@@ -31,12 +31,10 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
     # PROVISION
-    server.vm.provision "shell", inline: "cp /home/vagrant/ansible/png/torcs1.png /home/vagrant/"
-    server.vm.provision "shell", path: "../ansible/sh/install_python.sh"
-    server.vm.provision "shell", path: "../ansible/sh/install_ansible.sh"
-    server.vm.provision "shell", path: "../ansible/sh/install_ansible_plugins.sh"
-    server.vm.provision "shell", inline: "/home/vagrant/ansible/playbooks/playbook-torcs-server.yaml"
-    server.vm.provision "shell", inline: "/home/vagrant/ansible/playbooks/playbook-desktop.yaml"
+    server.vm.provision "shell", inline: "yes | ansible/sh/install_python.sh"
+    server.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
+    server.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-server.yaml"
+    server.vm.provision "shell", inline: "cd ansible; add_dir /home/vagrant pictures; cp png/torcs1.png /home/vagrant/pictures"
     
   end  
 
@@ -52,11 +50,13 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     client.vm.box_version = CLIENT_BOX_VERSION          
     client.vm.network "private_network", ip: CLIENT_IP
     client.vm.hostname = "torcs-client"
+    client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
     
     # PROVISION
-    client.vm.provision "shell", path: "../ansible/sh/install_ansible.sh"
-    client.vm.provision "shell", path: "../ansible/sh/install_ansible_plugins.sh"
-    client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
+    client.vm.provision "shell", inline: "yes | ansible/sh/install_python.sh"
+    client.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
+    client.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-client.yaml"
+    client.vm.provision "shell", inline: "echo '192.168.56.20 torcs-server' >> /etc/hosts"
 
   end    
 
