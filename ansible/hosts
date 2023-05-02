@@ -1,15 +1,12 @@
 [clients]
-ubuntu
+torcs-client
 
 [servers]
-ubuntu
+torcs-server
 
 [torcs:children]
 clients
 servers
 
 [desktop]
-ubuntu
-
-[local]
-localhost
+torcs-server
