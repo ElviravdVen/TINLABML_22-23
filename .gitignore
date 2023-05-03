@@ -142,4 +142,5 @@ ansible/hosts
 vagrant/packer-example-master/packer_cache/
 ansible/playbooks/files/MultiAgentTORCS/
 vagrant/*.box
-vagrant/packer-example-master/output-virtualbox-iso/packer-virtualbox-iso-1683119600.vdi
+vagrant/packer-example-master/output-virtualbox-iso/
+vagrant/*.ova
