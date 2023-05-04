@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-boxname="torcs-server"
+machines=("torcs-server" "torcs-client")
 
-vagrant package ${boxname} --output ${boxname}
-md5sum "${boxname}.box"
+for machine in "${machines[@]}"
+do
+    boxname="${machine}.box"
+    printf "Export VM %s\n" "${boxname}"
+
+    vagrant package ${boxname} --output ${boxname}
+    md5sum ${boxname}
+
+done
