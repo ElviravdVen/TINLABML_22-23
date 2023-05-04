@@ -7,7 +7,7 @@
 
 - name: Install python packages for Torcs Agents
   shell:
-    pip install --upgrade pip -r "/home/vagrant/requirements.txt"
+    pip install --upgrade pip --no-cache-dir -r "/home/vagrant/requirements.txt"
     
 # MultiAgentTORCS
 
@@ -24,13 +24,13 @@
 
 # torcs-node-client
 
-- name: Check if torcs-node-client directory exists
+- name: Check if torcs node client directory exists
   stat:
     path: "/home/vagrant/torcs-node-client"
-  register: torcs-node-client_torcs_dir
+  register: torcs_node_client_dir
 
 - name: Git checkout MultiAgentTORCS
   ansible.builtin.git:
     repo: https://github.com/wayneparrott/torcs-node-client
     dest: "/home/vagrant/torcs-node-client"
-  when: torcs-node-client_dir.stat.exists == false
+  when: torcs_node_client_dir.stat.exists == false

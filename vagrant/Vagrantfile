@@ -31,7 +31,6 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
     # PROVISION
-    server.vm.provision "shell", inline: "yes | ansible/sh/install_python.sh"
     server.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
     server.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-server.yaml"
     server.vm.provision "shell", inline: "cd ansible; add_dir /home/vagrant pictures; cp png/torcs1.png /home/vagrant/pictures"
@@ -53,7 +52,6 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
     
     # PROVISION
-    client.vm.provision "shell", inline: "yes | ansible/sh/install_python.sh"
     client.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
     client.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-client.yaml"
     client.vm.provision "shell", inline: "echo '192.168.56.20 torcs-server' >> /etc/hosts"
