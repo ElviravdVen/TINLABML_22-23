@@ -1,27 +1,25 @@
 ```mermaid
 classDiagram
-    Tensor <|-- Scalar
-    Tensor <|-- Vector
-    Tensor <|-- Matrix
-    Float <|-- Scalar
+    Tensor <|-- Scalar 
+    Tensor <|-- Vector : Inheritance
     Tensor: +init(width, height) 
     Tensor : +int width
     Tensor : +int height
     Tensor: +add(other)
     Tensor: +mult(other)
+    Vector --* Tensor : Composition
+    Float <|-- Scalar : Multiple Inheritance
+    List <|-- Vector : Multiple Inheritance
+    Vector <|-- Matrix : Inheritance
 
     class Scalar {
         Scalar: +init(width, height)
-        +getArea()
     }
     class Vector {
         Vector: +init(base, height)
-        +getArea()
     }
     class Matrix {
         Matrix: +init(radius)
-        +getArea()
+        +getColumn(index)
     }
-    class Float {
-    }
-```            
+```
