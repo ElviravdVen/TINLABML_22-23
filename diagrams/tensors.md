@@ -2,24 +2,38 @@
 classDiagram
     Tensor <|-- Scalar 
     Tensor <|-- Vector : Inheritance
-    Tensor: +init(width, height) 
-    Tensor : +int width
-    Tensor : +int height
-    Tensor: +add(other)
-    Tensor: +mult(other)
     Vector --* Tensor : Composition
     Float <|-- Scalar : Multiple Inheritance
     List <|-- Vector : Multiple Inheritance
     Vector <|-- Matrix : Inheritance
 
+    class Tensor {
+        +init() 
+        +add(Tensor other) 
+        +mult(Tensor other)
+        +str(): Str
+    }
+
     class Scalar {
-        Scalar: +init(width, height)
+        +init()
+        +add(Scalar other)
+        +mult(Scalar other)
+        +float(): float
     }
+
     class Vector {
-        Vector: +init(base, height)
+        +init()
+        +add(Vector other)
+        +mult(Tensor other)
+        +len(): int
+        +list()
     }
+
     class Matrix {
-        Matrix: +init(radius)
+        +init(radius)
+        +add(Matrix other)
+        +mult(Tensor other)
         +getColumn(index)
+        +size(): tuple
     }
 ```
