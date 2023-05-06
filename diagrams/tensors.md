@@ -30,7 +30,7 @@ classDiagram
     }
 
     class Matrix {
-        +init(radius)
+        +init()
         +add(Matrix other)
         +mult(Tensor other)
         +getColumn(index)
