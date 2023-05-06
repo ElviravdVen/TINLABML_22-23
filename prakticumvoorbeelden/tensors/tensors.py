@@ -21,52 +21,30 @@ class Tensor(ABC):
         pass
 
     @abstractmethod
-    def __len__(self):
-        """
-        Number of items in this Tensor
-        :return: int
-        """
-
-    @abstractmethod
-    def getValue(self):
-        """
-        Value(s) contained in this Tensor
-        :return:
-        """
-
-    @abstractmethod
     def __str__(self):
         """
         String representation of this Tensor
         :return: str
         """
 
-    def getValue(self):
-        return self.value
-
-
 # Inherits from Tensor
-class Scalar(Tensor):
+class Scalar(Tensor, float):
     """
     Class to generate 1x1 Tensor objects
     overriding abstract methods of SuperClass Tensor
     """
 
     def __init__(self, val=0):
-        self.value = val
-
-    #  Length of a Scalar is 1 by definition
-    def __len__(self):
-        return 1
+        self = val
 
     def __add__(self, other):
-        return self.getValue() + other.getValue()
+        return Scalar( float(self) + float(other) )
 
     def __mul__(self, other):
-        return self.getValue() * other.getValue()
+        return Scalar( float(self) * float(other) )
 
     def __str__(self):
-        return str(self.getValue())
+        return str( float(self) )
 
 
 # Inherits from Tensor

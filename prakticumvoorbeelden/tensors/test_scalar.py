@@ -7,17 +7,20 @@ import unittest
 logging.basicConfig(level=logging.DEBUG)
 
 
-class TestTensors(unittest.TestCase):
+class TestScalar(unittest.TestCase):
+    scalarA = Scalar(1)
+    scalarB = Scalar(-1)
+    scalarC = Scalar(0)
 
     # Test Addition of Scalars
     def testAdd(self):
-        self.assertEqual(Scalar(1) + Scalar(-1), 0)
+        self.assertEqual(self.scalarA + self.scalarB, 0)
 
     def testMult(self):
-        self.assertEqual(Scalar(0.5) * Scalar(2), 1)
+        self.assertEqual(self.scalarA * self.scalarC, 0)    
 
-    def testGetValue(self):
-        self.assertEqual(Scalar(3.14).getValue(), 3.14)
+    def testStr(self):
+        self.assertEqual(str(self.scalarB), "-1.0")
 
 if __name__ == '__main__':
     unittest.main()
