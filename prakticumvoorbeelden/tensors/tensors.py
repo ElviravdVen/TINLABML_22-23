@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from collections import Counter
 
 # Inherits from Abstract class
 class Tensor(ABC):
@@ -34,7 +34,7 @@ class Scalar(Tensor, float):
     overriding abstract methods of SuperClass Tensor
     """
 
-    def __init__(self, val=0):
+    def __init__(self, val):
         self = val
 
     def __add__(self, other):
@@ -48,48 +48,30 @@ class Scalar(Tensor, float):
 
 
 # Inherits from Tensor
-class Vector(Tensor, list):
+class Vector(Tensor, tuple):
     """
     Class to generate nr_of_rows x 1 Tensor objects
     overriding abstract methods of SuperClass Tensor
     """
 
-    def __init__(self, numbers=None):
+    def __init__(self, numList):
         # Define Vector as a list of Scalars
-        if numbers is None:
-            self.value = list()
-        else:
-            self.value = numbers
-
-        self.value = numbers.copy() if numbers is not None else []
-
-        if numbers is not None:
-            for number in numbers:
-                self.append(Scalar(number))
-
+        self = (Scalar(num) for num in numList)
+    
     def __len__(self):
-        return len(self.getValue())
+        # Return number of scalars contained in this Vector
+        return len( [scalar for scalar in self] )
 
     def __add__(self, other):
         """
         :param other: Vector
         :return: Vector
         """
-        # Check if vectors have equal length
-
+        # Check if vectors have equal length        
+        return Vector(float(a+b) for (a, b) in zip(self, other))
+    
     def __mul__(self, other):
         pass
 
     def __str__(self):
-        vectorString = "["
-
-        for val in self.getValue():
-            vectorString = f"{vectorString}{val} "
-
-        vectorString = f"{vectorString}]"
-
-        return vectorString.replace(" ]", "]")
-
-
-if __name__ == "__main__":
-    print(Vector([0, 1]))
+        pass
