@@ -8,9 +8,11 @@
     msg: "{{ python_version.stdout }}"
 
 - name: Unarchive Python-3.10.5.tar.xz from www.python.org
+  become: True
+  become_method: sudo
   ansible.builtin.unarchive:
     src: https://www.python.org/ftp/python/3.10.5/Python-3.10.5.tar.xz
-    dest: '/usr/local/bin/'
+    dest: '/usr/local/'
     validate_certs: False
     remote_src: yes
   when: python_version.stdout != "3.10.5"
@@ -20,21 +22,21 @@
   become_method: sudo
   ansible.builtin.shell:
     cmd: ./configure
-    chdir: /usr/local/bin/Python-3.10.5
+    chdir: /usr/local/Python-3.10.5
   when: python_version.stdout != "3.10.5"
 
 - name: make
   become: True
   become_method: sudo
   community.general.make:
-    chdir: /usr/local/bin/Python-3.10.5
+    chdir: /usr/local/Python-3.10.5
   when: python_version.stdout != "3.10.5"
 
 - name: make install
   become: True
   become_method: sudo
   community.general.make:
-    chdir: /usr/local/bin/Python-3.10.5
+    chdir: /usr/local/Python-3.10.5
     target: install
   when: python_version.stdout != "3.10.5"
 

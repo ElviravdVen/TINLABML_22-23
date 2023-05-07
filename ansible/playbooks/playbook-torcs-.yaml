@@ -5,6 +5,12 @@
   become: False
   gather_facts: True
   roles:
-    - opengl
-    - torcs-scr    
-    - plib
+    - time-and-locale
+    - commands
+    - zsh
+    - gcc
+    - git
+    - zip
+    - dist-upgrade
+    - packages
+    - libs
