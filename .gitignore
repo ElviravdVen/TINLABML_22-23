@@ -145,3 +145,4 @@ vagrant/*.box
 vagrant/packer-example-master/output-virtualbox-iso/
 vagrant/*.ova
 .vscode/settings.json
+prakticumvoorbeelden/lin_alg/tensors/__pycache__
