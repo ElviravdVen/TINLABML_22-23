@@ -24,7 +24,7 @@ classDiagram
     class Vector {
         +init()
         +add(Vector other)
-        +mult(Tensor other)
+        +mult(Tensor other): Scalar
         +len(): int
         +list()
     }
@@ -32,7 +32,7 @@ classDiagram
     class Matrix {
         +init()
         +add(Matrix other)
-        +mult(Tensor other)
+        +mult(Tensor other): Tensor
         +getColumn(index)
         +size(): tuple
     }
