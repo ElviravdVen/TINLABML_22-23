@@ -1,39 +1,42 @@
 ```mermaid
 classDiagram
     Tensor <|-- Scalar 
-    Tensor <|-- Vector : Inheritance
-    Vector --* Tensor : Composition
+    Tensor <|-- Vector
+    Tensor <|-- Matrix
     Float <|-- Scalar : Multiple Inheritance
-    List <|-- Vector : Multiple Inheritance
-    Vector <|-- Matrix : Inheritance
+    Tuple <|-- Vector : Multiple Inheritance
+    List <|-- Matrix : Multiple Inheritance
+    Vector --* Scalar : Composition
+    Matrix --* Vector : Composition 
 
     class Tensor {
-        +init() 
+        -dimensions: tuple 
+        +init()
         +add(Tensor other) 
         +mult(Tensor other)
-        +str(): Str
+        +getDimensions: tuple
+        +str(): str
     }
 
     class Scalar {
         +init()
-        +add(Scalar other)
-        +mult(Scalar other)
+        +add(Scalar other): Scalar
+        +mult(Scalar other): Scalar
         +float(): float
     }
 
     class Vector {
         +init()
-        +add(Vector other)
+        +add(Vector other): Vector
         +mult(Tensor other): Scalar
-        +len(): int
         +list()
     }
 
     class Matrix {
         +init()
-        +add(Matrix other)
+        +add(Matrix other): Matrix
         +mult(Tensor other): Tensor
-        +getColumn(index)
-        +size(): tuple
+        +getColumn(index): Vector
+        +getRow(index): Vector
     }
 ```
