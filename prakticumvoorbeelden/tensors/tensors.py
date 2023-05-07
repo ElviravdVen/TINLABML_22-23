@@ -14,11 +14,17 @@ class Tensor(ABC):
     # Decorator
     @abstractmethod
     def __add__(self, other):
-        pass
+        """
+        Addition of this Tensor with other Tensor
+        :return: Tensor
+        """    
 
     @abstractmethod
     def __mul__(self, other):
-        pass
+        """
+        Multiplication of this Tensor with other Tensor
+        :return: Tensor
+        """    
 
     @abstractmethod
     def __str__(self):
@@ -26,6 +32,11 @@ class Tensor(ABC):
         String representation of this Tensor
         :return: str
         """
+
+    @abstractmethod
+    def getDimensions(self):
+        pass
+
 
 # Inherits from Tensor
 class Scalar(Tensor, float):
@@ -46,6 +57,8 @@ class Scalar(Tensor, float):
     def __str__(self):
         return str( float(self) )
 
+    def getDimensions(self):
+        return (1, 1)
 
 # Inherits from Tensor
 class Vector(Tensor, tuple):

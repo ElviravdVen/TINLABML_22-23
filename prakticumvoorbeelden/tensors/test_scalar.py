@@ -22,5 +22,8 @@ class TestScalar(unittest.TestCase):
     def testStr(self):
         self.assertEqual(str(self.scalarB), "-1.0")
 
+    def testGetDimensions(self):
+        self.assertEqual(self.scalarC.getDimensions(), (1, 1))
+
 if __name__ == '__main__':
     unittest.main()
