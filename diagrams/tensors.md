@@ -14,7 +14,7 @@ classDiagram
         +init()
         +add(Tensor other) 
         +mult(Tensor other)
-        +getDimensions: tuple
+        +getDimensions(): tuple
         +str(): str
     }
 
