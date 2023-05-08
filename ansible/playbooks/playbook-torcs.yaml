@@ -1,0 +1,16 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  connection: local
+  become: False
+  gather_facts: True
+  roles:
+    - time-and-locale
+    - commands
+    - zsh
+    - gcc
+    - git
+    - zip
+    - dist-upgrade
+    - packages
+    - libs
