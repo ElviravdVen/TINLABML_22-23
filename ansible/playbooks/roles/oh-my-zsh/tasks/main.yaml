@@ -1,9 +1,4 @@
 ---
-- name: Check if oh-my-zsh exists
-  stat:
-    path: '{{ ansible_env.HOME }}/.oh-my-zsh'
-  register: oh_my_zsh
-  
 - name: Check if zsh exists
   stat:
     path: /bin/zsh    
@@ -14,11 +9,11 @@
     src: sh/install_oh_my_zsh.sh
     dest: /tmp/install_oh_my_zsh.sh
     mode: 'u=rwx,g+x'
-  when: zsh.stat.exists == true and oh_my_zsh.stat.exists == false
+  when: zsh.stat.exists == true
 
 - name: Run install oh-my-zsh script
   shell: /tmp/install_oh_my_zsh.sh
-  when: zsh.stat.exists == true and oh_my_zsh.stat.exists == false
+  when: zsh.stat.exists == true
 
 - name: Replace zsh theme
   vars:

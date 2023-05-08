@@ -1,5 +1,7 @@
 ---
 - name: Set timezone to Europe/Amsterdam
+  become: True
+  become_method: sudo
   community.general.timezone:
     name: Europe/Amsterdam
 

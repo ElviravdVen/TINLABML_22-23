@@ -3,12 +3,8 @@
 - hosts: localhost
   connection: local
   become: False
-
   gather_facts: True
   roles:
-    - packages
-    - lib
-    - dist-upgrade
-    - python
-    - pip
-    - torcs-agent
+   - python
+   - node
+   - torcs-agents

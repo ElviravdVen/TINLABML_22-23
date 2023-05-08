@@ -1,12 +1,12 @@
-[servers]
-torcs-server
-
 [clients]
 torcs-client
+
+[servers]
+torcs-server
 
 [torcs:children]
 clients
 servers
 
-[local]
-localhost
+[desktop]
+torcs-server

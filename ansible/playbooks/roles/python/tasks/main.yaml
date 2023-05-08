@@ -5,13 +5,15 @@
   register: python_version
 
 - debug:
-    msg: "{{ python_version.stdout }}" 
+    msg: "{{ python_version.stdout }}"
 
 - name: Unarchive Python-3.10.5.tar.xz from www.python.org
+  become: True
+  become_method: sudo
   ansible.builtin.unarchive:
     src: https://www.python.org/ftp/python/3.10.5/Python-3.10.5.tar.xz
-    dest: '/home/{{ansible_user_id}}/'
-    validate_certs: True
+    dest: '/usr/local/'
+    validate_certs: False
     remote_src: yes
   when: python_version.stdout != "3.10.5"
 
@@ -19,28 +21,34 @@
   become: True
   become_method: sudo
   ansible.builtin.shell:
-    cmd: ./configure --enable-optimizations
-    chdir: /home/{{ansible_user_id}}/Python-3.10.5
+    cmd: ./configure
+    chdir: /usr/local/Python-3.10.5
   when: python_version.stdout != "3.10.5"
 
 - name: make
   become: True
   become_method: sudo
   community.general.make:
-    chdir: /home/{{ansible_user_id}}/Python-3.10.5
+    chdir: /usr/local/Python-3.10.5
   when: python_version.stdout != "3.10.5"
 
 - name: make install
   become: True
   become_method: sudo
   community.general.make:
-    chdir: /home/{{ansible_user_id}}/Python-3.10.5
+    chdir: /usr/local/Python-3.10.5
     target: install
   when: python_version.stdout != "3.10.5"
 
 - name: Link python to python3
-  ansible.builtin.lineinfile:
-    path: /home/{{ ansible_user_id }}/.bashrc
-    line: alias python=/usr/local/bin/python3
-    create: yes
-  when: python_version.stdout != "3.10.5"
+  become: True
+  become_method: sudo
+  shell: "ln -s /usr/local/bin/python3.10 /usr/local/bin/python"
+
+- name: Install pip
+  become: True
+  become_method: sudo
+  apt:
+    name: python3-pip 
+    state: present
+    update_cache: "yes"

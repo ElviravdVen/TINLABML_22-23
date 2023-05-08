@@ -8,17 +8,17 @@ SERVER_IMAGE_NAME = "gusztavvargadr/ubuntu-desktop"
 SERVER_BOX_VERSION = "2004.0.2304"
 SERVER_IP = "192.168.56.20"
 
-CLIENT_IMAGE_NAME = "generic/ubuntu2210"
-CLIENT_BOX_VERSION = "4.2.16"
+CLIENT_IMAGE_NAME = "gusztavvargadr/ubuntu-server"
+CLIENT_BOX_VERSION = "2004.0.2304"
 CLIENT_IP = "192.168.56.21"
 
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
-  config.ssh.insert_key = "true"
-  config.ssh.forward_agent = "true"
+  config.ssh.insert_key = true
+  config.ssh.forward_agent = true
 
   config.vm.define "torcs-server" do |server|
     server.vm.provider "virtualbox" do |vb|
-      vb.check_guest_additions = true
+      vb.check_guest_additions = false
       vb.memory = "4096"
       vb.cpus = 4
       vb.gui = true
@@ -28,17 +28,18 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.box_version = SERVER_BOX_VERSION          
     server.vm.network "private_network", ip: SERVER_IP
     server.vm.hostname = "torcs-server"
+    server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
     # PROVISION
-    server.vm.provision "shell", path: "../ansible/install_ansible.sh"
-    server.vm.provision "shell", path: "../ansible/install_ansible_plugins.sh"
-    # server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
-
-  end
+    server.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
+    server.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-server.yaml"
+    server.vm.provision "shell", inline: "cd ansible; add_dir /home/vagrant pictures; cp png/torcs1.png /home/vagrant/pictures"
+    
+  end  
 
   config.vm.define "torcs-client" do |client|
     client.vm.provider "virtualbox" do |vb|
-      vb.check_guest_additions = true
+      vb.check_guest_additions = false
       vb.memory = "2048"
       vb.cpus = 2
       vb.gui = false
@@ -48,31 +49,13 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     client.vm.box_version = CLIENT_BOX_VERSION          
     client.vm.network "private_network", ip: CLIENT_IP
     client.vm.hostname = "torcs-client"
+    client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
     
     # PROVISION
-    client.vm.provision "shell", path: "../ansible/install_ansible.sh"
-    client.vm.provision "shell", path: "../ansible/install_ansible_plugins.sh"
-    client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
+    client.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
+    client.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-client.yaml"
+    client.vm.provision "shell", inline: "echo '192.168.56.20 torcs-server' >> /etc/hosts"
 
   end    
-
-  # config.vm.provision "ansible" do |ansible|
-  #   ansible.limit = 'all'
-    
-  #   ansible.playbook = "../ansible/playbooks/playbook-torcs-client.yaml"
-  #   host_key_checking = "false"
-
-  #   ansible.extra_vars = {
-  #       ansible_python_interpreter: "/usr/bin/env python3",
-  #       ansible_verbose: "v",
-  #       ansible_order: "sorted"
-  #   }            
-
-  #   ansible.groups = {
-  #     "clients" => ["torcs-ubuntu"],
-  #     "torcs:children" => ["clients", "servers"],
-  #   }
-
-  # end
 
 end

@@ -1,0 +1,59 @@
+# https://github.com/vog3lm/torcs-1.3.7
+---
+- name: Update bashrc for plib
+  become: False
+  ansible.builtin.blockinfile:
+    path: "/home/{{ ansible_user_id }}/.bashrc"
+    block: |
+      export CFLAGS='-fPIC'
+      export CPPFLAGS='\$CFLAGS'
+      export CXXFLAGS='\$CFLAGS'
+      cd /vagrant
+
+- name: Check if torcs directory exists
+  stat:
+    path: "/home/{{ ansible_user_id }}/torcs"    
+  register: torcs_dir
+
+- name: Git checkout torcs
+  become: False
+  ansible.builtin.git:
+    repo: https://github.com/fmirus/torcs-1.3.7.git
+    dest: "/home/{{ ansible_user_id }}/torcs"
+  when: torcs_dir.stat.exists == false
+
+- name: configure torcs-server
+  become: True
+  ansible.builtin.shell:
+    cmd: ./configure
+    chdir: /home/{{ ansible_user_id }}/torcs
+
+- name: make torcs-server
+  become: False
+  community.general.make:
+    chdir: /home/{{ ansible_user_id }}/torcs
+    
+- name: make install torcs-server
+  become: True
+  community.general.make:
+    chdir: /home/{{ ansible_user_id }}/torcs
+    target: install
+
+- name: make datainstall torcs-server
+  become: True
+  community.general.make:
+    chdir: /home/{{ ansible_user_id }}/torcs
+    target: datainstall
+
+# https://github.com/abhisheknaik96/MultiAgentTORCS
+
+- name: Unarchive scr-client-cpp.tgz
+  ansible.builtin.unarchive:
+    src: tar/scr-client-cpp.tgz
+    dest: '/home/{{ ansible_user_id }}/torcs'
+
+- name: make client scr-client-cpp
+  community.general.make:
+    chdir: /home/{{ ansible_user_id }}/torcs/scr-client-cpp
+    params:
+      NUM_THREADS: 4

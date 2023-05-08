@@ -17,10 +17,6 @@
   shell: dnf config-manager --add-repo dnf config-manager --add-repo https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Fedora_35/shells:zsh-users:zsh-autosuggestions.repo
   when: ansible_distribution == 'Fedora'
 
-- name: Retrieve zsh-autosuggestions for Ubuntu
-  shell: '/home/{{ansible_user_id}}/ansible/install_zsh.sh'
-  when: ansible_distribution == 'Ubuntu'
-
 - name: Install zsh-autosuggestions
   become: True
   become_method: sudo
@@ -31,3 +27,7 @@
   become: True
   become_method: sudo
   shell: chsh -s $(which zsh)
+
+- name: Activate zsh
+  become: False
+  shell: zsh <<EOF\n0\nEOF

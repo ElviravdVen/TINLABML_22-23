@@ -1,0 +1,11 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: desktop
+  become: True
+  become_method: sudo
+  connection: ssh
+  gather_facts: True
+  roles:
+    - ubuntu-desktop
+    - vnc-server
+    - codec-and-tweaks

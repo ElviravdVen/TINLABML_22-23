@@ -1,0 +1,23 @@
+---
+- name: Install several libs
+  become: True
+  become_method: sudo
+  package:
+    name: "{{ packages }}"
+    state: present
+    update_cache: "yes"
+  vars:
+    packages:
+    - libalut-dev
+    - libglib2.0-dev  
+    - libglu1-mesa-dev  
+    - libopenal-dev 
+    - libopenal1 
+    - libpng-dev
+    - libxi-dev 
+    - libxmu-dev 
+    - libxrandr-dev
+    - libxrender-dev  
+    - libxrender1 
+    - libxxf86vm-dev 
+    - zlib1g-dev
