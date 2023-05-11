@@ -43,7 +43,7 @@
 - name: Link python to python3
   become: True
   become_method: sudo
-  shell: "ln -s /usr/local/bin/python3.10 /usr/local/bin/python"
+  shell: "unlink /usr/local/bin/python; ln -s /usr/local/bin/python3.10 /usr/local/bin/python"
 
 - name: Install pip
   become: True
