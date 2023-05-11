@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-$HOME/torcs/scr-client-cpp/client
+date > ../logs/client.log
+../scr-client-cpp/client >> ../logs/torcs_client.log
