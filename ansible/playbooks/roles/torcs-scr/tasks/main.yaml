@@ -45,11 +45,6 @@
     chdir: /home/{{ ansible_user_id }}/torcs
     target: datainstall
 
-- name: Unarchive scr-client-cpp.tgz
-  ansible.builtin.unarchive:
-    src: tar/scr-client-cpp.tgz
-    dest: '/home/{{ ansible_user_id }}/torcs'
-
 - name: make client scr-client-cpp
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/torcs/scr-client-cpp
