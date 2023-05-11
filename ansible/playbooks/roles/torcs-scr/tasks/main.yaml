@@ -45,8 +45,6 @@
     chdir: /home/{{ ansible_user_id }}/torcs
     target: datainstall
 
-# https://github.com/abhisheknaik96/MultiAgentTORCS
-
 - name: Unarchive scr-client-cpp.tgz
   ansible.builtin.unarchive:
     src: tar/scr-client-cpp.tgz
