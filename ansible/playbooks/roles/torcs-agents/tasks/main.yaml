@@ -18,8 +18,8 @@
 
 - name: Git checkout MultiAgentTORCS
   ansible.builtin.git:
-    repo: https://github.com/abhisheknaik96/MultiAgentTORCS.git
-    dest: "/home/{{ ansible_user_id }}/MultiAgentTORCS"
+    repo: https://github.com/AlxcNL/MultiAgentTORCS
+    dest: "/home/{{ ansible_user_id }}/torcs/MultiAgentTORCS"
   when: multi_agent_torcs_dir.stat.exists == false
 
 # torcs-node-client
@@ -29,8 +29,8 @@
     path: "/home/{{ ansible_user_id }}/torcs-node-client"
   register: torcs_node_client_dir
 
-- name: Git checkout MultiAgentTORCS
+- name: Git checkout torcs-node-client
   ansible.builtin.git:
     repo: https://github.com/wayneparrott/torcs-node-client
-    dest: "/home/{{ ansible_user_id }}/torcs-node-client"
+    dest: "/home/{{ ansible_user_id }}/torcs/torcs-node-client"
   when: torcs_node_client_dir.stat.exists == false
