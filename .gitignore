@@ -147,3 +147,10 @@ vagrant/*.ova
 .vscode/settings.json
 prakticumvoorbeelden/lin_alg/tensors/__pycache__
 examples/
+opdrachten/groepsopdracht_final_torcs/torcs-ai_client_examples/scr-client-cpp/*.o
+opdrachten/groepsopdracht_final_torcs/torcs-ai_client_examples/scr-client-cpp/logs
+prakticumvoorbeelden/numpy/pics/2750
+opdrachten/groepsopdracht_final_torcs/torcs-ai_client_examples/scr-client-cpp/client
+opdrachten/groepsopdracht_final_torcs/torcs-ai_client_examples/scr-client-cpp/client.dev
+opdrachten/groepsopdracht_final_torcs/torcs-ai_client_examples/scr-client-cpp/data/forza.csv
+opdrachten/groepsopdracht_final_torcs/torcs-ai_client_examples/scr-client-cpp/Makefile.win
