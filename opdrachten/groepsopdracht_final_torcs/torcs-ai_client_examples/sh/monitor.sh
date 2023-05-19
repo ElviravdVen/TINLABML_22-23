@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
 function monitor {
-    tail -f torcs_client.log
-
+    (cd ../logs; tail -f torcs_client.log)
 }
 
 cls
 
 if [[ "$(dirname $0)" == "sh" ]]; then
-    (cd logs; monitor)
+    monitor
 else
-    (cd ../logs; monitor)
+    (cd ..; monitor)
 fi
