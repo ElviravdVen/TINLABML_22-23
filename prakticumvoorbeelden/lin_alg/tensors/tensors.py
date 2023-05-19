@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from collections import Counter
 
+
 # Inherits from Abstract class
 class Tensor(ABC):
     """
@@ -23,21 +24,24 @@ class Tensor(ABC):
         """
         Addition of this Tensor with other Tensor
         :return: Tensor
-        """    
+        """
 
+    # Operator overloading *
     @abstractmethod
     def __mul__(self, other):
         """
         Multiplication of this Tensor with other Tensor
         :return: Tensor
-        """    
+        """
 
+    # str(Tensor)
     @abstractmethod
     def __str__(self):
         """
         String representation of this Tensor
         :return: str
         """
+
 
 # Inherits from Tensor
 class Scalar(Tensor, float):
@@ -58,17 +62,22 @@ class Scalar(Tensor, float):
         :param other: Scalar
         :return: Scalar
         """
-        return Scalar( float(self) + float(other) )
+        return Scalar(float(self) + float(other))
 
     def __mul__(self, other):
         """
         :param other: Scalar
-        :return: Scalar
+        :return: Scalar if other has type Scalar
+        :return: Vector if other has type Vector
         """
-        return Scalar( float(self) * float(other) )
+
+        # Scalar * Scalar
+        returnScalar = float(self) * float(other)
+
+        return Scalar(returnScalar)
 
     def __str__(self):
-        return str( float(self) )
+        return str(float(self))
 
 
 # Inherits from Tensor
@@ -80,11 +89,12 @@ class Vector(Tensor, tuple):
 
     def __init__(self, numList):
         # Define Vector as a tuple of Scalars
+        # Tuple comprehension
         self = (Scalar(num) for num in numList)
-    
+
     def getDimensions(self):
         # Return number of scalars x 1
-        return ( len([scalar for scalar in self]), 1)
+        return (len([scalar for scalar in self]), 1)
 
     def __add__(self, other):
         """
@@ -92,44 +102,49 @@ class Vector(Tensor, tuple):
         :return: Vector
         """
 
-        # Check if vectors have equal length        
+        # Check if vectors have equal length
         if self.getDimensions() != other.getDimensions():
             return None
         else:
-            return Vector(float(a+b) for (a, b) in zip(self, other))
-    
+            # Tuple Comprehension
+            # zip -> Generates tuples of two lists
+            return Vector(float(a + b) for (a, b) in zip(self, other))
+
     def __mul__(self, other):
         """
         :param other: Vector
         :return: Scalar
         """
 
-        # Check if vectors have equal length        
+        # Check if vectors have equal length
         if self.getDimensions() != other.getDimensions():
             return None
         else:
             # Inner Vector Product
-            return sum(float(a*b) for (a, b) in zip(self, other))
+            return sum(float(a * b) for (a, b) in zip(self, other))
+
+        # Multiply Matrix and Vector
 
     def __str__(self):
-        return str( [float(scalar) for scalar in self] )
-    
-    
+        return str([float(scalar) for scalar in self])
+
+
 class Matrix(Tensor, list):
-    
     def __init__(self, listOfnumLists):
         # Define Matrix as a list of Vectors
         for numList in listOfnumLists:
-            self.append( Vector(numList) )
+            self.append(Vector(numList))
 
     def getDimensions(self):
         # Return number of RowVectors x number of ColVectors
         pass
-        
+
+    # Helper function
     def getRow(self, i):
         # Return Row Vector
         return self[i]
-    
+
+    # Helper function
     def getColumn(self, j):
         # Return Column Vector
-        return Vector( [row[j] for row in self] )
+        return Vector([row[j] for row in self])
