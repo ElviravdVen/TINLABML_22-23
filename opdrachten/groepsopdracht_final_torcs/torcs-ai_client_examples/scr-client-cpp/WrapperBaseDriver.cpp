@@ -16,24 +16,33 @@
 #include "WrapperBaseDriver.h"
 
 void writeCsvRow(CarState X, CarControl Y) {
+    char date[9];
+    time_t t = time(0);
+    struct tm *tm;
+
 	/**
      * CSV Representation
     */
+
     // X : Data from Server
-    
+
     // 8 Car State Features
     printf("%f;%f;%f;%i;%i;%f;%f;%f", X.getSpeedX(), X.getSpeedY(), X.getSpeedZ(), X.getRpm(), X.getGear(),  X.getAngle(), X.getZ(), X.getDamage());
     printf(";");
 
-    // 6 Race Environment Features
-    printf( "%f;%i;%f;%f;%f;%f", X.getTrackPos(), X.getRacePos(), X.getDistRaced(), X.getDistFromStart(), X.getCurLapTime(), X.getLastLapTime());
+    // 7 Race Environment Features
+
+    tm = gmtime(&t);
+    strftime(date, sizeof(date), "+%F-%H-%M-%S", tm);    
+
+    printf("%f;%i;%f;%f;%f;%f;%s", X.getTrackPos(), X.getRacePos(), X.getDistRaced(), X.getDistFromStart(), X.getCurLapTime(), X.getLastLapTime(), date);
     printf(";");
 
     // Y : Data from Agent
     // 5 Actions
     printf("%f;%f;%i;%f;%f", Y.getAccel(), Y.getBrake(), Y.getGear(), Y.getSteer(), Y.getClutch());
     printf("\n");
-
+ 
 }
 
 string 
