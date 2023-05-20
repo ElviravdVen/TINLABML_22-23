@@ -1,8 +1,8 @@
 /***************************************************************************
- 
+
     file                 : client.cpp
     copyright            : (C) 2007 Daniele Loiacono
- 
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -14,9 +14,9 @@
  *                                                                         *
  ***************************************************************************/
 /* Uncomment the following lines under windows */
-//#define WIN32 // maybe not necessary because already define
-//#define __DRIVER_CLASS__ SimpleDriver     // put here the name of your driver class
-//#define __DRIVER_INCLUDE__ "SimpleDriver.h" // put here the filename of your driver h\\eader
+// #define WIN32 // maybe not necessary because already define
+// #define __DRIVER_CLASS__ SimpleDriver     // put here the name of your driver class
+// #define __DRIVER_INCLUDE__ "SimpleDriver.h" // put here the filename of your driver h\\eader
 
 #ifdef WIN32
 #include <WinSock.h>
@@ -51,13 +51,12 @@ typedef struct sockaddr_in tSockAddrIn;
 class __DRIVER_CLASS__;
 typedef __DRIVER_CLASS__ tDriver;
 
-
 using namespace std;
 
-//void parse_args(int argc, char *argv[], char *hostName, unsigned int &serverPort, char *id, unsigned int &maxEpisodes,unsigned int &maxSteps,
+// void parse_args(int argc, char *argv[], char *hostName, unsigned int &serverPort, char *id, unsigned int &maxEpisodes,unsigned int &maxSteps,
 //		bool &noise, double &noiseAVG, double &noiseSTD, long &seed, char *trackName, BaseDriver::tstage &stage);
 void parse_args(int argc, char *argv[], char *hostName, unsigned int &serverPort, char *id, unsigned int &maxEpisodes,
-		  unsigned int &maxSteps, char *trackName, BaseDriver::tstage &stage);
+                unsigned int &maxSteps, char *trackName, BaseDriver::tstage &stage);
 
 int main(int argc, char *argv[])
 {
@@ -69,10 +68,10 @@ int main(int argc, char *argv[])
     char id[1000];
     unsigned int maxEpisodes;
     unsigned int maxSteps;
-//    bool noise;
-//    double noiseAVG;
-//    double noiseSTD;
-//    long seed;
+    //    bool noise;
+    //    double noiseAVG;
+    //    double noiseSTD;
+    //    long seed;
     char trackName[1000];
 
     BaseDriver::tstage stage;
@@ -83,29 +82,28 @@ int main(int argc, char *argv[])
     fd_set readSet;
     char buf[UDP_MSGLEN];
 
+#ifdef WIN32
+    /* WinSock Startup */
 
-#ifdef WIN32 
-     /* WinSock Startup */
+    WSADATA wsaData = {0};
+    WORD wVer = MAKEWORD(2, 2);
+    int nRet = WSAStartup(wVer, &wsaData);
 
-     WSADATA wsaData={0};
-     WORD wVer = MAKEWORD(2,2);
-     int nRet = WSAStartup(wVer,&wsaData);
-
-     if(nRet == SOCKET_ERROR)
-     {
- 	std::cout << "Failed to init WinSock library" << std::endl;
-	exit(1);
-     }
+    if (nRet == SOCKET_ERROR)
+    {
+        std::cout << "Failed to init WinSock library" << std::endl;
+        exit(1);
+    }
 #endif
 
-//    parse_args(argc,argv,hostName,serverPort,id,maxEpisodes,maxSteps,noise,noiseAVG,noiseSTD,seed,trackName,stage);
+    //    parse_args(argc,argv,hostName,serverPort,id,maxEpisodes,maxSteps,noise,noiseAVG,noiseSTD,seed,trackName,stage);
 
-    parse_args(argc,argv,hostName,serverPort,id,maxEpisodes,maxSteps,trackName,stage);
+    parse_args(argc, argv, hostName, serverPort, id, maxEpisodes, maxSteps, trackName, stage);
 
-//    if (seed>0)
-//    	srand(seed);
-//    else
-//    	srand(time(NULL));
+    //    if (seed>0)
+    //    	srand(seed);
+    //    else
+    //    	srand(time(NULL));
 
     hostInfo = gethostbyname(hostName);
     if (hostInfo == NULL)
@@ -117,39 +115,38 @@ int main(int argc, char *argv[])
     // Print command line option used
     cout << "***********************************" << endl;
 
-    cout << "HOST: "   << hostName    << endl;
+    cout << "HOST: " << hostName << endl;
 
-    cout << "PORT: " << serverPort  << endl;
+    cout << "PORT: " << serverPort << endl;
 
-    cout << "ID: "   << id     << endl;
+    cout << "ID: " << id << endl;
 
-    cout << "MAX_STEPS: " << maxSteps << endl; 
+    cout << "MAX_STEPS: " << maxSteps << endl;
 
     cout << "MAX_EPISODES: " << maxEpisodes << endl;
 
-//    if (seed>0)
-//    	cout << "SEED: " << seed << endl;
+    //    if (seed>0)
+    //    	cout << "SEED: " << seed << endl;
 
     cout << "TRACKNAME: " << trackName << endl;
 
-
     if (stage == BaseDriver::WARMUP)
-		cout << "STAGE: WARMUP" << endl;
-	else if (stage == BaseDriver::QUALIFYING)
-		cout << "STAGE:QUALIFYING" << endl;
-	else if (stage == BaseDriver::RACE)
-		cout << "STAGE: RACE" << endl;
-	else
-		cout << "STAGE: UNKNOWN" << endl;
+        cout << "STAGE: WARMUP" << endl;
+    else if (stage == BaseDriver::QUALIFYING)
+        cout << "STAGE:QUALIFYING" << endl;
+    else if (stage == BaseDriver::RACE)
+        cout << "STAGE: RACE" << endl;
+    else
+        cout << "STAGE: UNKNOWN" << endl;
 
-	cout << "***********************************" << endl;
+    cout << "***********************************" << endl;
     cout << "s_speed_x;s_speed_y;s_speed_z;s_rpm;s_gear;s_angle;s_z;s_damage";
     cout << ";";
-    cout << "s_track_position;s_race_position;s_distance_raced;s_distance_from_start;s_current_laptime;s_last_laptime;timestamp";
+    cout << "s_track_position;s_race_position;s_distance_raced;s_distance_from_start;s_current_laptime;s_last_laptime;m_timestamp";
     cout << ";";
     cout << "a_accelation;a_brake;a_gear;a_steer;a_clutch;";
     cout << endl;
-	cout << "***********************************" << endl;
+    cout << "***********************************" << endl;
 
     // Create a socket (UDP on IPv4 protocol)
     socketDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
@@ -161,16 +158,16 @@ int main(int argc, char *argv[])
 
     // Set some fields in the serverAddress structure.
     serverAddress.sin_family = hostInfo->h_addrtype;
-    memcpy((char *) &serverAddress.sin_addr.s_addr,
+    memcpy((char *)&serverAddress.sin_addr.s_addr,
            hostInfo->h_addr_list[0], hostInfo->h_length);
     serverAddress.sin_port = htons(serverPort);
 
     tDriver d;
-    strcpy(d.trackName,trackName);
+    strcpy(d.trackName, trackName);
     d.stage = stage;
 
-    bool shutdownClient=false;
-    unsigned long curEpisode=0;
+    bool shutdownClient = false;
+    unsigned long curEpisode = 0;
     do
     {
         /***********************************************************************************
@@ -178,15 +175,15 @@ int main(int argc, char *argv[])
         ***********************************************************************************/
         do
         {
-        	// Initialize the angles of rangefinders
-        	float angles[19];
-        	d.init(angles);
-        	string initString = SimpleParser::stringify(string("init"),angles,19);
+            // Initialize the angles of rangefinders
+            float angles[19];
+            d.init(angles);
+            string initString = SimpleParser::stringify(string("init"), angles, 19);
             cout << "Sending id to server: " << id << endl;
-            initString.insert(0,id);
+            initString.insert(0, id);
             cout << "Sending init string to the server: " << initString << endl;
             if (sendto(socketDescriptor, initString.c_str(), initString.length(), 0,
-                       (struct sockaddr *) &serverAddress,
+                       (struct sockaddr *)&serverAddress,
                        sizeof(serverAddress)) < 0)
             {
                 cerr << "cannot send data ";
@@ -200,29 +197,29 @@ int main(int argc, char *argv[])
             timeVal.tv_sec = 0;
             timeVal.tv_usec = UDP_CLIENT_TIMEUOT;
 
-            if (select(socketDescriptor+1, &readSet, NULL, NULL, &timeVal))
+            if (select(socketDescriptor + 1, &readSet, NULL, NULL, &timeVal))
             {
                 // Read data sent by the solorace server
-                memset(buf, 0x0, UDP_MSGLEN);  // Zero out the buffer.
+                memset(buf, 0x0, UDP_MSGLEN); // Zero out the buffer.
                 numRead = recv(socketDescriptor, buf, UDP_MSGLEN, 0);
                 if (numRead < 0)
                 {
                     cerr << "didn't get response from server...";
                 }
-		else
-		{
-                	cout << "Received: " << buf << endl;
+                else
+                {
+                    cout << "Received: " << buf << endl;
 
-                	if (strcmp(buf,"***identified***")==0)
-                    		break;
-            	}
-	      }
+                    if (strcmp(buf, "***identified***") == 0)
+                        break;
+                }
+            }
 
-        }  while(1);
+        } while (1);
 
-	unsigned long currentStep=0; 
+        unsigned long currentStep = 0;
 
-        while(1)
+        while (1)
         {
             // wait until answer comes back, for up to UDP_CLIENT_TIMEUOT micro sec
             FD_ZERO(&readSet);
@@ -230,10 +227,10 @@ int main(int argc, char *argv[])
             timeVal.tv_sec = 0;
             timeVal.tv_usec = UDP_CLIENT_TIMEUOT;
 
-            if (select(socketDescriptor+1, &readSet, NULL, NULL, &timeVal))
+            if (select(socketDescriptor + 1, &readSet, NULL, NULL, &timeVal))
             {
                 // Read data sent by the solorace server
-                memset(buf, 0x0, UDP_MSGLEN);  // Zero out the buffer.
+                memset(buf, 0x0, UDP_MSGLEN); // Zero out the buffer.
                 numRead = recv(socketDescriptor, buf, UDP_MSGLEN, 0);
                 if (numRead < 0)
                 {
@@ -246,7 +243,7 @@ int main(int argc, char *argv[])
                 // cout << "Received: " << buf << endl;
 #endif
 
-                if (strcmp(buf,"***shutdown***")==0)
+                if (strcmp(buf, "***shutdown***") == 0)
                 {
                     d.onShutdown();
                     shutdownClient = true;
@@ -254,7 +251,7 @@ int main(int argc, char *argv[])
                     break;
                 }
 
-                if (strcmp(buf,"***restart***")==0)
+                if (strcmp(buf, "***restart***") == 0)
                 {
                     d.onRestart();
                     cout << "Client Restart" << endl;
@@ -264,17 +261,17 @@ int main(int argc, char *argv[])
                  * Compute The Action to send to the solorace sever
                  **************************************************/
 
-		if ( (++currentStep) != maxSteps)
-		{
-            string action = d.drive(string(buf));
-            memset(buf, 0x0, UDP_MSGLEN);
-			sprintf(buf,"%s",action.c_str());
-                // cout << "Action: " << action << endl;
-		}
-		else
-			sprintf (buf, "(meta 1)");
-                if (sendto(socketDescriptor, buf, strlen(buf)+1, 0,
-                           (struct sockaddr *) &serverAddress,
+                if ((++currentStep) != maxSteps)
+                {
+                    string action = d.drive(string(buf));
+                    memset(buf, 0x0, UDP_MSGLEN);
+                    sprintf(buf, "%s", action.c_str());
+                    // cout << "Action: " << action << endl;
+                }
+                else
+                    sprintf(buf, "(meta 1)");
+                if (sendto(socketDescriptor, buf, strlen(buf) + 1, 0,
+                           (struct sockaddr *)&serverAddress,
                            sizeof(serverAddress)) < 0)
                 {
                     cerr << "cannot send data ";
@@ -291,89 +288,87 @@ int main(int argc, char *argv[])
                 cout << "** Server did not respond in 1 second.\n";
             }
         }
-    } while(shutdownClient==false && ( (++curEpisode) != maxEpisodes) );
+    } while (shutdownClient == false && ((++curEpisode) != maxEpisodes));
 
-    if (shutdownClient==false)
-	d.onShutdown();
+    if (shutdownClient == false)
+        d.onShutdown();
     CLOSE(socketDescriptor);
 #ifdef WIN32
     WSACleanup();
 #endif
     return 0;
-
 }
 
-//void parse_args(int argc, char *argv[], char *hostName, unsigned int &serverPort, char *id, unsigned int &maxEpisodes,
+// void parse_args(int argc, char *argv[], char *hostName, unsigned int &serverPort, char *id, unsigned int &maxEpisodes,
 //		  unsigned int &maxSteps,bool &noise, double &noiseAVG, double &noiseSTD, long &seed, char *trackName, BaseDriver::tstage &stage)
 void parse_args(int argc, char *argv[], char *hostName, unsigned int &serverPort, char *id, unsigned int &maxEpisodes,
-		  unsigned int &maxSteps, char *trackName, BaseDriver::tstage &stage)
+                unsigned int &maxSteps, char *trackName, BaseDriver::tstage &stage)
 {
-    int		i;
+    int i;
 
     // Set default values
-    maxEpisodes=0;
-    maxSteps=0;
-    serverPort=3001;
-    strcpy(hostName,"localhost");
-    strcpy(id,"SCR");
-//    noise=false;
-//    noiseAVG=0;
-//    noiseSTD=0.05;
-//    seed=0;
-    strcpy(trackName,"unknown");
-    stage=BaseDriver::UNKNOWN;
-
+    maxEpisodes = 0;
+    maxSteps = 0;
+    serverPort = 3001;
+    strcpy(hostName, "localhost");
+    strcpy(id, "SCR");
+    //    noise=false;
+    //    noiseAVG=0;
+    //    noiseSTD=0.05;
+    //    seed=0;
+    strcpy(trackName, "unknown");
+    stage = BaseDriver::UNKNOWN;
 
     i = 1;
     while (i < argc)
     {
-    	if (strncmp(argv[i], "host:", 5) == 0)
-    	{
-    		sprintf(hostName, "%s", argv[i]+5);
-    		i++;
-    	}
-    	else if (strncmp(argv[i], "port:", 5) == 0)
-    	{
-    		sscanf(argv[i],"port:%d",&serverPort);
-    		i++;
-    	}
-    	else if (strncmp(argv[i], "id:", 3) == 0)
-    	{
-    		sprintf(id, "%s", argv[i]+3);
-    		i++;
-	    }
-    	else if (strncmp(argv[i], "maxEpisodes:", 12) == 0)
-    	{
-    		sscanf(argv[i],"maxEpisodes:%ud",&maxEpisodes);
-    	    i++;
-    	}
-    	else if (strncmp(argv[i], "maxSteps:", 9) == 0)
-    	{
-    		sscanf(argv[i],"maxSteps:%ud",&maxSteps);
-    		i++;
-    	}
-//    	else if (strncmp(argv[i], "seed:", 5) == 0)
-//    	{
-//    	    	sscanf(argv[i],"seed:%ld",&seed);
-//    	    	i++;
-//    	}
-    	else if (strncmp(argv[i], "track:", 6) == 0)
-    	{
-    	    	sscanf(argv[i],"track:%s",trackName);
-    	    	i++;
-    	}
-    	else if (strncmp(argv[i], "stage:", 6) == 0)
-    	{
-				int temp;
-    		   	sscanf(argv[i],"stage:%d",&temp);
-    		   	stage = (BaseDriver::tstage) temp;
-    	    	i++;
-    	    	if (stage<BaseDriver::WARMUP || stage > BaseDriver::RACE)
-					stage = BaseDriver::UNKNOWN;
-    	}
-    	else {
-    		i++;		/* ignore bad args */
-    	}
+        if (strncmp(argv[i], "host:", 5) == 0)
+        {
+            sprintf(hostName, "%s", argv[i] + 5);
+            i++;
+        }
+        else if (strncmp(argv[i], "port:", 5) == 0)
+        {
+            sscanf(argv[i], "port:%d", &serverPort);
+            i++;
+        }
+        else if (strncmp(argv[i], "id:", 3) == 0)
+        {
+            sprintf(id, "%s", argv[i] + 3);
+            i++;
+        }
+        else if (strncmp(argv[i], "maxEpisodes:", 12) == 0)
+        {
+            sscanf(argv[i], "maxEpisodes:%ud", &maxEpisodes);
+            i++;
+        }
+        else if (strncmp(argv[i], "maxSteps:", 9) == 0)
+        {
+            sscanf(argv[i], "maxSteps:%ud", &maxSteps);
+            i++;
+        }
+        //    	else if (strncmp(argv[i], "seed:", 5) == 0)
+        //    	{
+        //    	    	sscanf(argv[i],"seed:%ld",&seed);
+        //    	    	i++;
+        //    	}
+        else if (strncmp(argv[i], "track:", 6) == 0)
+        {
+            sscanf(argv[i], "track:%s", trackName);
+            i++;
+        }
+        else if (strncmp(argv[i], "stage:", 6) == 0)
+        {
+            int temp;
+            sscanf(argv[i], "stage:%d", &temp);
+            stage = (BaseDriver::tstage)temp;
+            i++;
+            if (stage < BaseDriver::WARMUP || stage > BaseDriver::RACE)
+                stage = BaseDriver::UNKNOWN;
+        }
+        else
+        {
+            i++; /* ignore bad args */
+        }
     }
-
 }
