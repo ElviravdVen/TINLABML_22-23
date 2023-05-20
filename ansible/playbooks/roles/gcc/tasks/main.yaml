@@ -10,6 +10,7 @@
     packages:
       - gcc
       - cmake
+      - gdb
 
 - name: Install build-essential
   become: True

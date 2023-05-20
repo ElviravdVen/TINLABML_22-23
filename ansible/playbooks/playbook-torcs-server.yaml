@@ -5,16 +5,6 @@
   become: False
   gather_facts: True
   roles:
-    - time-and-locale
-    - commands
-    - zsh
-    - gcc
-    - git
-    - opengl
-    - zip
-    - dist-upgrade
-    - packages
-    - vnc-server
-    - lib
     - plib
-    - torcs-scr    
+    - opengl 
+    - torcs-scr

@@ -2,35 +2,35 @@
 - name: Copy requirements.txt
   ansible.builtin.copy:
     src: pip/requirements.txt
-    dest: "/home/vagrant/requirements.txt"
+    dest: "/home/{{ ansible_user_id }}/requirements.txt"
     mode: 'u=rwx,g+x'
 
 - name: Install python packages for Torcs Agents
   shell:
-    pip install --upgrade pip -r "/home/vagrant/requirements.txt"
+    pip install --upgrade pip --no-cache-dir -r "/home/{{ ansible_user_id }}/requirements.txt"
     
 # MultiAgentTORCS
 
 - name: Check if MultiAgentTORCS directory exists
   stat:
-    path: "/home/vagrant/MultiAgentTORCS"
+    path: "/home/{{ ansible_user_id }}/MultiAgentTORCS"
   register: multi_agent_torcs_dir
 
-- name: Copy MultiAgentTORCS
-  ansible.builtin.copy:
-    src: MultiAgentTORCS
-    dest: /home/vagrant/torcs/MultiAgentTORCS
-    mode: 'u=rwx,g+x'
+- name: Git checkout MultiAgentTORCS
+  ansible.builtin.git:
+    repo: https://github.com/AlxcNL/MultiAgentTORCS
+    dest: "/home/{{ ansible_user_id }}/torcs/MultiAgentTORCS"
   when: multi_agent_torcs_dir.stat.exists == false
 
 # torcs-node-client
 
-- name: Check if torcs-node-client directory exists
+- name: Check if torcs node client directory exists
   stat:
-    path: "/home/vagrant/torcs-node-client"
-  register: torcs-node-client_torcs_dir
+    path: "/home/{{ ansible_user_id }}/torcs-node-client"
+  register: torcs_node_client_dir
 
-- name: Git checkout MultiAgentTORCS
+- name: Git checkout torcs-node-client
   ansible.builtin.git:
     repo: https://github.com/wayneparrott/torcs-node-client
-    dest: "/home/vagrant/torcs-node-client"
+    dest: "/home/{{ ansible_user_id }}/torcs/torcs-node-client"
+  when: torcs_node_client_dir.stat.exists == false

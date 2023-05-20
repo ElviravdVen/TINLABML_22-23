@@ -1,0 +1,54 @@
+---
+- name: Check python version
+  shell: python3 --version | cut -f 2 -d ' '
+  ignore_errors: True
+  register: python_version
+
+- debug:
+    msg: "{{ python_version.stdout }}"
+
+- name: Unarchive Python-3.10.5.tar.xz from www.python.org
+  become: True
+  become_method: sudo
+  ansible.builtin.unarchive:
+    src: https://www.python.org/ftp/python/3.10.5/Python-3.10.5.tar.xz
+    dest: '/usr/local/'
+    validate_certs: False
+    remote_src: yes
+  when: python_version.stdout != "3.10.5"
+
+- name: configure
+  become: True
+  become_method: sudo
+  ansible.builtin.shell:
+    cmd: ./configure
+    chdir: /usr/local/Python-3.10.5
+  when: python_version.stdout != "3.10.5"
+
+- name: make
+  become: True
+  become_method: sudo
+  community.general.make:
+    chdir: /usr/local/Python-3.10.5
+  when: python_version.stdout != "3.10.5"
+
+- name: make install
+  become: True
+  become_method: sudo
+  community.general.make:
+    chdir: /usr/local/Python-3.10.5
+    target: install
+  when: python_version.stdout != "3.10.5"
+
+- name: Link python to python3
+  become: True
+  become_method: sudo
+  shell: "unlink /usr/local/bin/python; ln -s /usr/local/bin/python3.10 /usr/local/bin/python"
+
+- name: Install pip
+  become: True
+  become_method: sudo
+  apt:
+    name: python3-pip 
+    state: present
+    update_cache: "yes"
