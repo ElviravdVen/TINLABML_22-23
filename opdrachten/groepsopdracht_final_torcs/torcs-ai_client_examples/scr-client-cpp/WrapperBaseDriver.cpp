@@ -21,7 +21,7 @@ void writeCsvRow(CarState X, CarControl Y) {
     */
 
    // Metadata
-    printf("%s;", "scr-client-cpp");
+    printf("%s", "scr-client-cpp");
     printf(";");
    
     // X : Data from Server    
