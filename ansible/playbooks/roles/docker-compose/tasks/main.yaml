@@ -1,0 +1,23 @@
+---
+- name: Get the username for docker-compose
+  become: false
+  local_action: command whoami
+  register: username_on_the_host
+  
+- debug: 
+    msg: "Current user: {{ username_on_the_host.stdout }}"
+
+- name: Download docker-compose
+  become: True
+  become_method: sudo
+  ansible.builtin.get_url:  
+    url: https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-aarch64
+    checksum: sha256:6d1784542f74806ef0ed4e798d31c91604453eb06b86448b4c60d7df5d5b7afb
+    dest: /usr/bin/docker-compose
+    mode: 'a+x'        
+
+- name: Allow execution of docker-compose
+  become: True
+  become_method: sudo
+  remote_user: "{{ username_on_the_host.stdout }}"
+  file: dest=/usr/bin/docker-compose mode=a+x
