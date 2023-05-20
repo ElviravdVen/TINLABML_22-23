@@ -16,10 +16,11 @@
     path: "/home/vagrant/MultiAgentTORCS"
   register: multi_agent_torcs_dir
 
-- name: Git checkout MultiAgentTORCS
-  ansible.builtin.git:
-    repo: https://github.com/abhisheknaik96/MultiAgentTORCS.git
-    dest: "/home/vagrant/MultiAgentTORCS"
+- name: Copy MultiAgentTORCS
+  ansible.builtin.copy:
+    src: MultiAgentTORCS
+    dest: /home/vagrant/torcs/MultiAgentTORCS
+    mode: 'u=rwx,g+x'
   when: multi_agent_torcs_dir.stat.exists == false
 
 # torcs-node-client
@@ -33,4 +34,3 @@
   ansible.builtin.git:
     repo: https://github.com/wayneparrott/torcs-node-client
     dest: "/home/vagrant/torcs-node-client"
-  when: torcs-node-client_dir.stat.exists == false
