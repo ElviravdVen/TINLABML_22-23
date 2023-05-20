@@ -140,11 +140,13 @@ int main(int argc, char *argv[])
         cout << "STAGE: UNKNOWN" << endl;
 
     cout << "***********************************" << endl;
+    cout << "m_client_name;m_timestamp";
+    cout << ";";
     cout << "s_speed_x;s_speed_y;s_speed_z;s_rpm;s_gear;s_angle;s_z;s_damage";
     cout << ";";
-    cout << "s_track_position;s_race_position;s_distance_raced;s_distance_from_start;s_current_laptime;s_last_laptime;m_timestamp";
+    cout << "s_track_position;s_race_position;s_distance_raced;s_distance_from_start;s_current_laptime;s_last_laptime";
     cout << ";";
-    cout << "a_accelation;a_brake;a_gear;a_steer;a_clutch;";
+    cout << "a_accelation;a_brake;a_gear;a_steer;a_clutch";
     cout << endl;
     cout << "***********************************" << endl;
 

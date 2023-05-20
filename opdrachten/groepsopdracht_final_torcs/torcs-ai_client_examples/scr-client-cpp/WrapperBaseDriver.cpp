@@ -1,8 +1,8 @@
 /***************************************************************************
- 
+
     file                 : WrapperBaseDriver.cpp
     copyright            : (C) 2007 Daniele Loiacono
- 
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -15,42 +15,47 @@
  ***************************************************************************/
 #include "WrapperBaseDriver.h"
 
-void writeCsvRow(CarState X, CarControl Y) {
+void writeCsvRow(CarState X, CarControl Y)
+{
     char date[9];
     time_t t = time(0);
     struct tm *tm;
 
-	/**
+    /**
      * CSV Representation
-    */
+     */
+
+    // Metadata
+
+    // 2 primairy key columens
+    tm = gmtime(&t);
+    strftime(date, sizeof(date), "+%F-%H-%M-%S", tm);
+
+    printf("%s;%s", "scr-client-cpp", date);
+    printf(";");
 
     // X : Data from Server
 
     // 8 Car State Features
-    printf("%f;%f;%f;%i;%i;%f;%f;%f", X.getSpeedX(), X.getSpeedY(), X.getSpeedZ(), X.getRpm(), X.getGear(),  X.getAngle(), X.getZ(), X.getDamage());
+    printf("%f;%f;%f;%i;%i;%f;%f;%f", X.getSpeedX(), X.getSpeedY(), X.getSpeedZ(), X.getRpm(), X.getGear(), X.getAngle(), X.getZ(), X.getDamage());
     printf(";");
 
-    // 7 Race Environment Features
-
-    tm = gmtime(&t);
-    strftime(date, sizeof(date), "+%F-%H-%M-%S", tm);    
-
-    printf("%f;%i;%f;%f;%f;%f;%s", X.getTrackPos(), X.getRacePos(), X.getDistRaced(), X.getDistFromStart(), X.getCurLapTime(), X.getLastLapTime(), date);
+    // 6 Race Environment Features
+    printf("%f;%i;%f;%f;%f;%f", X.getTrackPos(), X.getRacePos(), X.getDistRaced(), X.getDistFromStart(), X.getCurLapTime(), X.getLastLapTime());
     printf(";");
 
     // Y : Data from Agent
+
     // 5 Actions
     printf("%f;%f;%i;%f;%f", Y.getAccel(), Y.getBrake(), Y.getGear(), Y.getSteer(), Y.getClutch());
     printf("\n");
- 
 }
 
-string 
+string
 WrapperBaseDriver::drive(string sensors)
 {
-	CarState cs(sensors);
-	CarControl cc = wDrive(cs);
+    CarState cs(sensors);
+    CarControl cc = wDrive(cs);
     writeCsvRow(cs, cc);
-	return cc.toString();	
+    return cc.toString();
 }
-
