@@ -17,10 +17,6 @@
 
 void writeCsvRow(CarState X, CarControl Y)
 {
-    char date[9];
-    time_t t = time(0);
-    struct tm *tm;
-
     /**
      * CSV Representation
      */
@@ -28,10 +24,10 @@ void writeCsvRow(CarState X, CarControl Y)
     // Metadata
 
     // 2 primairy key columens
-    tm = gmtime(&t);
-    strftime(date, sizeof(date), "+%F-%H-%M-%S", tm);
+    std::time_t since_epoch = std::time(nullptr);
 
-    printf("%s;%s", "scr-client-cpp", date);
+    printf("%s;", "scr-client-cpp");
+    cout << since_epoch;
     printf(";");
 
     // X : Data from Server
