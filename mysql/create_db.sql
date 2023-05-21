@@ -1,1 +1,2 @@
-CREATE DATABASE tinlabml;
+CREATE DATABASE colected;
+CREATE DATABASE selected;

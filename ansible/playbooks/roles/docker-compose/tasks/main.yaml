@@ -11,8 +11,8 @@
   become: True
   become_method: sudo
   ansible.builtin.get_url:  
-    url: https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-aarch64
-    checksum: sha256:6d1784542f74806ef0ed4e798d31c91604453eb06b86448b4c60d7df5d5b7afb
+    url: https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64
+    checksum: sha256:b4e6aff14c30f82ce26e94d37686b5598b3f870ce1e053927c853b4f4b128575
     dest: /usr/bin/docker-compose
     mode: 'a+x'        
 
