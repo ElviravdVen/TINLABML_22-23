@@ -1,2 +1,2 @@
-CREATE DATABASE collected;
+CREATE DATABASE colected;
 CREATE DATABASE selected;

@@ -3,18 +3,34 @@
   become: false
   local_action: command whoami
   register: username_on_the_host
-  
+
 - debug: 
     msg: "Current user: {{ username_on_the_host.stdout }}"
 
-- name: Download docker-compose
+- name: Get the architecture of this machine
+  become: false
+  shell: "uname -m"
+  register: architecture
+
+- debug: 
+    msg: "Arhitecture: {{ architecture.stdout }}"
+
+- name: stat /usr/bin/cls
   become: True
   become_method: sudo
-  ansible.builtin.get_url:  
-    url: https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-aarch64
-    checksum: sha256:6d1784542f74806ef0ed4e798d31c91604453eb06b86448b4c60d7df5d5b7afb
+  stat:
+    path: /usr/bin/cls
+  register: docker_compose
+
+- name: Download docker-compose with checksum
+  become: True
+  become_method: sudo
+  ansible.builtin.get_url:
+    url: "https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-{{ architecture.stdout }}"    
     dest: /usr/bin/docker-compose
-    mode: 'a+x'        
+    mode: 'a+x'
+    checksum: sha256:https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-{{ architecture.stdout }}.sha256
+  when: not docker_compose.stat.exists
 
 - name: Allow execution of docker-compose
   become: True

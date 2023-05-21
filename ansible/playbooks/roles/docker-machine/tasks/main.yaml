@@ -1,0 +1,6 @@
+---
+- name: Install Docker machine KVM driver
+  ansible.builtin.copy:
+    src: docker-machine-driver-kvm-ubuntu16.04
+    dest: /usr/local/bin/docker-machine-driver-kvm
+    mode: 'a+x'

@@ -5,14 +5,17 @@ h5py
 inputs
 ipython
 json3
+jupyterlab
 lxml
 matplotlib
 numpy
 pandas
-pydoc-utils
-python-dateutil
+pathlib
+pickle4
 ptpython
+pydoc-utils
 pymysql
+python-dateutil
 scikit-image
 scikit-learn
 scipy
@@ -21,3 +24,4 @@ setuptools
 spacy
 statsmodels
 tensorflow
+voila

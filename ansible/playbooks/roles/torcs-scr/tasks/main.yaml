@@ -44,9 +44,3 @@
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/torcs
     target: datainstall
-
-- name: make client scr-client-cpp
-  community.general.make:
-    chdir: /home/{{ ansible_user_id }}/torcs/scr-client-cpp
-    params:
-      NUM_THREADS: 4

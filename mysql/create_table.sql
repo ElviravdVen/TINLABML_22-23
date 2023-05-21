@@ -1,9 +1,9 @@
-USE collected;
+USE colected;
 
 CREATE TABLE forza (
     M_TIMESTAMP timestamp,
     M_CLIENT_NAME char,
-    S_SPEED_X float,
+    S_SPEED_X float, 
     S_SPEED_Y float,
     S_SPEED_Z float,
     S_RPM smallint,
@@ -23,5 +23,7 @@ CREATE TABLE forza (
     A_GEAR tinyint,
     A_STEER float,
     A_CLUTCH float
+    PRIMARY KEY (M_CLIENT_NAME) 
+
 )
 

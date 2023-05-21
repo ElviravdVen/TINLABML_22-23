@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-machines=("torcs-server" "torcs-client")
+machines=("torcs-server")
 
 for machine in ${machines[@]}
 do

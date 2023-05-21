@@ -70,6 +70,8 @@
 #  Fedora, CentOS
 
 - name: Install python-dnf module
+  become: True
+  become_method: sudo
   dnf:
     name: python-dnf
     state: present
@@ -77,6 +79,8 @@
     ansible_distribution == "Fedora" or ansible_distribution == "CentOS"
 
 - name: Install dnf-plugins-core to manage DNF repository
+  become: True
+  become_method: sudo
   dnf:
     name: dnf-plugins-core
     state: present
@@ -84,11 +88,16 @@
     ansible_distribution == "Fedora" or ansible_distribution == "CentOS"
 
 - name: Add docker repo
+  become: True
+  become_method: sudo
   shell: dnf config-manager --add-repo 'https://download.docker.com/linux/fedora/docker-ce.repo'
   when:
     ansible_distribution == "Fedora"
 
 - name: Add docker repo
+  become: True
+  become_method: sudo
+
   shell: dnf config-manager --add-repo 'https://download.docker.com/linux/centos/docker-ce.repo'
   when:
     ansible_distribution == "CentOS"
