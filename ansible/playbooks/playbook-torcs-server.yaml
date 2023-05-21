@@ -8,3 +8,5 @@
     - plib
     - opengl 
     - torcs-scr
+    - docker
+    - docker-compose
