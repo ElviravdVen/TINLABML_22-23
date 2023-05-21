@@ -4,18 +4,17 @@
 VAGRANT_API_VERSION = "2"
 WORKSPACE = "../ansible"
 
-SERVER_IMAGE_NAME = "gusztavvargadr/ubuntu-desktop"
-SERVER_BOX_VERSION = "2004.0.2304"
+# SERVER_IMAGE_NAME = "gusztavvargadr/docker-linux"
+# SERVER_BOX_VERSION = "2010.2004.2305"
+
+SERVER_IMAGE_NAME = "AlxcNL/torcs-server"
+SERVER_BOX_VERSION = "0.2"
 SERVER_IP = "192.168.56.20"
 
-CLIENT_IMAGE_NAME = "gusztavvargadr/ubuntu-server"
-CLIENT_BOX_VERSION = "2004.0.2304"
-CLIENT_IP = "192.168.56.21"
-
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
-  config.ssh.insert_key = true
+  config.ssh.insert_key = false
   config.ssh.forward_agent = true
-
+  
   config.vm.define "torcs-server" do |server|
     server.vm.provider "virtualbox" do |vb|
       vb.check_guest_additions = false
@@ -31,30 +30,16 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
 
     # PROVISION
-    server.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
-    server.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-server.yaml"
-    server.vm.provision "shell", inline: "cd ansible; add_dir /home/vagrant pictures; cp png/torcs1.png /home/vagrant/pictures"
-    
-  end  
 
-  config.vm.define "torcs-client" do |client|
-    client.vm.provider "virtualbox" do |vb|
-      vb.check_guest_additions = false
-      vb.memory = "2048"
-      vb.cpus = 2
-      vb.gui = false
+    server.vm.provision "docker" do |d|
+      d.run "mysql"
     end
-      
-    client.vm.box = CLIENT_IMAGE_NAME
-    client.vm.box_version = CLIENT_BOX_VERSION          
-    client.vm.network "private_network", ip: CLIENT_IP
-    client.vm.hostname = "torcs-client"
-    client.vm.synced_folder WORKSPACE, "/home/vagrant/ansible"       
-    
-    # PROVISION
-    client.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
-    client.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-client.yaml"
-    client.vm.provision "shell", inline: "echo '192.168.56.20 torcs-server' >> /etc/hosts"
+
+    server.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
+    server.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs.yaml"
+    server.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-server.yaml"
+    server.vm.provision "shell", inline: "cd ansible; playbooks/playbook-torcs-client.yaml"
+    server.vm.provision "shell", inline: "cd ansible; add_dir /home/vagrant pictures; cp png/torcs1.png /home/vagrant/pictures"
 
   end    
 

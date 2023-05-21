@@ -139,10 +139,8 @@ opdrachten/groepsopdracht_final_torcs/AlxcNL/torcs-server.box
 tinlab/
 opdrachten/groepsopdracht_final_torcs/torcs-server
 ansible/hosts
-vagrant/packer-example-master/packer_cache/
 ansible/playbooks/files/MultiAgentTORCS/
 vagrant/*.box
-vagrant/packer-example-master/output-virtualbox-iso/
 vagrant/*.ova
 .vscode/settings.json
 prakticumvoorbeelden/lin_alg/tensors/__pycache__
