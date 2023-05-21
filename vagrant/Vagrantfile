@@ -32,11 +32,11 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
       images: ["mysql:8.0.33"]
 
     # BASH  
-    server.vm.provision "shell", path: "install/install_zsh_autosuggestions.sh"
-    server.vm.provision "shell", path: "install/install_oh_my_zsh.sh"
-    server.vm.provision "shell", path: "install/install_python.sh"
-    server.vm.provision "shell", path: "install/install_ansible.sh"
-    server.vm.provision "shell", path: "install/install_ansible_plugins.sh"
+    server.vm.provision "shell", path: "../install/install_zsh_autosuggestions.sh"
+    server.vm.provision "shell", path: "../install/install_oh_my_zsh.sh"
+    server.vm.provision "shell", path: "../install/install_python.sh"
+    server.vm.provision "shell", path: "../install/install_ansible.sh"
+    server.vm.provision "shell", path: "../install/install_ansible_plugins.sh"
 
     # ANSIBLE
     server.vm.provision "shell", inline: "cd /vagrant/ansible; playbooks/playbook-torcs.yaml"

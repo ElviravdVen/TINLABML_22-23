@@ -2,7 +2,7 @@
 
 # https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 
-if type -p "python" && [ -f /usr/bin/python ]; then
+if type -p "python" && [ -f /usr/bin/python3.10 ]; then
     echo "Python 3 already installed"
     exit 0;
 fi
