@@ -28,10 +28,10 @@ apt update \
     && apt autoremove
 
 echo "Install python 3.10"
-apt install python3.10 
-
-echo "Install pip"
-apt install python3-pip 
+apt install -y python3.10 
 
 echo "Make python 3.10 default"
 ln -s /usr/bin/python3.10 /usr/bin/python
+
+echo "Install pip"
+apt install -y python3-pip 
