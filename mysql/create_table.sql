@@ -17,7 +17,7 @@ CREATE TABLE forza (
     S_CURRENT_LAPTIME float,
     S_LAST_LAPTIME float,
     S_TIMESTAMP date,
-    A_ACCELATION float,
+    A_ACCELERATION float,
     A_BRAKE float,
     A_GEAR tinyint,
     A_STEER float,
