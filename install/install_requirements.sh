@@ -5,11 +5,11 @@ function installWithPip {
   echo "Install with pip"
 
   echo "Prepare pip"
-  python -m pip install --upgrade pip    
-  python -m pip install setuptools
-  python -m pip install -U sentence-transformers
+  pip install --upgrade pip    
+  pip install setuptools
+  pip install -U sentence-transformers
   echo "Install requierments with pip"
-  python -m pip install --no-cache-dir -r pip/requirements.txt
+  pip install --no-cache-dir -r pip/requirements.txt
 
 }
 
