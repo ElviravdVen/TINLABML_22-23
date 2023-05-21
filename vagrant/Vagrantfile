@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     # PROVISION
 
     server.vm.provision "docker" do |d|
-      d.run "mysql"
+      d.run "mysql:8.0.33"
     end
 
     server.vm.provision "shell", inline: "cd ansible/sh; ./install_ansible.sh && ./install_ansible_plugins.sh"
