@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-docker-compose down
+docker-compose down || True
 docker-compose up

@@ -1,12 +1,14 @@
-USE tinlabml;
+USE collected;
 
 CREATE TABLE forza (
+    M_TIMESTAMP timestamp,
+    M_CLIENT_NAME char,
     S_SPEED_X float,
     S_SPEED_Y float,
     S_SPEED_Z float,
     S_RPM smallint,
     S_GEAR tinyint,
-    S_ANGLE float
+    S_ANGLE float,
     S_Z float,
     S_DAMAGE float,
     S_TRACK_POSITION float,
@@ -16,7 +18,7 @@ CREATE TABLE forza (
     S_CURRENT_LAPTIME float,
     S_LAST_LAPTIME float,
     S_TIMESTAMP date,
-    A_ACCELATION float,
+    A_ACCELERATION float,
     A_BRAKE float,
     A_GEAR tinyint,
     A_STEER float,
