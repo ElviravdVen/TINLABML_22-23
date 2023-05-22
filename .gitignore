@@ -163,3 +163,4 @@ mysql/my-db/
 opdrachten/groepsopdracht_final_torcs/mysql/.env
 opdrachten/groepsopdracht_final_torcs/mysql/my-db/
 opdrachten/groepsopdracht_final_torcs/torcs-server.box
+opdrachten/groepsopdracht_final_torcs/torcs-ai_client_examples/scr-client-cpp.tar.gz
