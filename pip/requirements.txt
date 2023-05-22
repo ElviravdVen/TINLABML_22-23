@@ -8,6 +8,7 @@ json3
 jupyterlab
 lxml
 matplotlib
+pymysql
 numpy
 pandas
 pathlib
@@ -16,6 +17,7 @@ ptpython
 pydoc-utils
 pymysql
 python-dateutil
+SQLAlchemy
 scikit-image
 scikit-learn
 scipy
@@ -24,4 +26,3 @@ setuptools
 spacy
 statsmodels
 tensorflow
-voila

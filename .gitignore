@@ -160,3 +160,6 @@ prakticumvoorbeelden/numpy/pics/EuroSAT.zip
 1-intro-to-linear-algebra.ipynb
 mysql/.env
 mysql/my-db/
+opdrachten/groepsopdracht_final_torcs/mysql/.env
+opdrachten/groepsopdracht_final_torcs/mysql/my-db/
+opdrachten/groepsopdracht_final_torcs/torcs-server.box
