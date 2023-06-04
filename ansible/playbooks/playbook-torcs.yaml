@@ -1,7 +1,7 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: torcs
-  connection: ssh
+- hosts: localhost
+  connection: local
   become: False
   gather_facts: True
   roles:

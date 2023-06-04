@@ -5,6 +5,8 @@
   become: False
   gather_facts: True
   roles:
-    - plib
-    - opengl 
-    - torcs-scr
+    # - plib
+    # - opengl 
+    # - torcs-scr
+    # - docker
+    - docker-compose
