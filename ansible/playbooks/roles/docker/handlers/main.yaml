@@ -1,0 +1,11 @@
+---
+- name: docker started
+  ansible.builtin.systemd:
+    state: started
+    name: docker
+    
+- name: docker restarted
+  ansible.builtin.systemd:
+    state: restarted
+    name: docker
+    daemon_reload: "yes"

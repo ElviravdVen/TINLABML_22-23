@@ -7,4 +7,4 @@ if [ -z "$track" ]; then
     exit 1;
 fi
 
-cat logs/torcs_client.log | grep ';' > "data/${track}_$(date +%F).csv"
+cat logs/torcs_client.log | grep ';' | tr '[a-zA-Z]' '[A-Za-z]' > "data/${track}_$(date +%F).csv"

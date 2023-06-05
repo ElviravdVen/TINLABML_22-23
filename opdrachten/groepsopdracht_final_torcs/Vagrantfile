@@ -24,9 +24,8 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     server.vm.box_version = SERVER_BOX_VERSION          
     server.vm.network "private_network", ip: SERVER_IP
     server.vm.hostname = "torcs-server"
-    # server.vm.synced_folder WORKSPACE, "/vagrant"       
-    server.vm.synced_folder "torcs-ai_client_examples/scr-client-cpp", "/home/vagrant/torcs/scr-client-cpp"
-
+    server.vm.synced_folder WORKSPACE, "/vagrant"       
+  
   end
 
 end
