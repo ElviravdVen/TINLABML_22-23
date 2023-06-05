@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-(cde $HOME/torcs; torcs)
+date > ../../logs/torcs_server.log; torcs >> ../../logs/torcs_server.log

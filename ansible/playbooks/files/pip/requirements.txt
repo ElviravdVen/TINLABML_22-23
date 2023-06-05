@@ -1,8 +1,6 @@
 Flask
 Flask-SocketIO
-getopts
 gym
-gymnasium
 h5py
 inputs
 ipython
@@ -11,10 +9,10 @@ lxml
 matplotlib
 numpy
 pandas
-pickle4
 pydoc-utils
 python-dateutil
 ptpython
+pymysql
 scikit-image
 scikit-learn
 scipy
@@ -22,6 +20,4 @@ seaborn
 setuptools
 spacy
 statsmodels
-sympy
-tensorboard
 tensorflow
