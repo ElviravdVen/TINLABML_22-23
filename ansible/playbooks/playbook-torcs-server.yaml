@@ -7,6 +7,6 @@
   roles:
     - plib
     - opengl 
-    # - torcs-scr
+    - torcs-scr
     - docker
     - docker-compose
