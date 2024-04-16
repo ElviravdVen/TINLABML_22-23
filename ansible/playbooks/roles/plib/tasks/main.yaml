@@ -8,7 +8,7 @@
     update_cache: "yes"
   vars:
     packages:
-      - libxmu6 
-      - libxmu-dev
-      - libxi-dev
-      - libplib-dev
+      - plib
+      # FEDORA
+      - plib-devel
+      - freealut

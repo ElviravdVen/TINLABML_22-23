@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: example
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    # volumes:
+    #   - /home/angelo/mongodata:/data/db
+
+  python-ai-jupyter:
+    container_name: $CONTAINER_NAME
+    image: jaboo/miw-notebook:latest
+    entrypoint: python -m jupyterlab
+    pull_policy: always
+    ports:
+      - 8888:8888
+    tty: false    
+    # volumes:
+    #   - ${HOSTPATH_NOTEBOOKS}:/home/student/notebooks
+    #   - ${HOSTPATH_PICS}:/home/student/pics

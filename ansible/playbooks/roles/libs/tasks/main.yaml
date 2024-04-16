@@ -21,3 +21,24 @@
     - libxrender1 
     - libxxf86vm-dev 
     - zlib1g-dev
+  when:
+    ansible_distribution in ("Ubuntu", "Linux Mint", "Pop!_OS")
+
+- name: Install several libs
+  become: True
+  become_method: sudo
+  package:
+    name: "{{ packages }}"
+    state: present
+    update_cache: "yes"
+  vars:
+    packages:
+    - glibc
+    - libX11
+    - libXxf86vm
+    - libgcc
+    - libglvnd-glx
+    - libstdc++
+
+  when:
+    ansible_distribution in ("Fedora")

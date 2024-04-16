@@ -1,0 +1,15 @@
+---
+- name: Enable firewall
+  become: true
+  become_method: sudo
+  community.general.ufw:
+    state: enabled
+
+- name: Allow tcp ports
+  become: true
+  become_method: sudo
+  community.general.ufw:
+    rule: allow
+    port: 3001:3010
+    proto: tcp
+    state: enabled    

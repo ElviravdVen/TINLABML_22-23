@@ -21,11 +21,18 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     end
       
     server.vm.box = SERVER_IMAGE_NAME
-    server.vm.box_version = SERVER_BOX_VERSION          
+    server.vm.box_version = SERVER_BOX_VERSION        
+    server.vm.box_check_update = true      
     server.vm.network "private_network", ip: SERVER_IP
     server.vm.hostname = "torcs-server"
     server.vm.synced_folder WORKSPACE, "/vagrant"       
   
+    # PROVISION
+
+    server.vm.provision "docker",
+      images: ["portainer/portainer-ce"]
+
+
   end
 
 end

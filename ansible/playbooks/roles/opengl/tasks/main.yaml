@@ -8,8 +8,14 @@
     update_cache: "yes"
   vars:
     packages:
-      - freeglut3-dev    
-      - libgl1-mesa-glx
+      - freeglut
+      - freeglut-devel
       - vorbis-tools
-      - libvorbis-dev
       - xautomation
+      # UBUNTU
+      # - libgl1-mesa-dev
+      # - libegl1-mesa-dev
+      # FEDORA      
+      - mesa-libglapi
+      - mesa-libGL
+      - libglvnd-glx

@@ -312,7 +312,7 @@ void parse_args(int argc, char *argv[], char *hostName, unsigned int &serverPort
     maxEpisodes = 0;
     maxSteps = 0;
     serverPort = 3001;
-    strcpy(hostName, "localhost");
+    strcpy(hostName, "torcs-server");
     strcpy(id, "SCR");
     //    noise=false;
     //    noiseAVG=0;

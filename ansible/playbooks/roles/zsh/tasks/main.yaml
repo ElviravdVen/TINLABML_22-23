@@ -13,10 +13,6 @@
     update_cache: "yes"
   when: zsh.stat.exists == false
 
-- name: Retrieve zsh-autosuggestions for Fedora
-  shell: dnf config-manager --add-repo dnf config-manager --add-repo https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/Fedora_35/shells:zsh-users:zsh-autosuggestions.repo
-  when: ansible_distribution == 'Fedora'
-
 - name: Install zsh-autosuggestions
   become: True
   become_method: sudo

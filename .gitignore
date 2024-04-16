@@ -168,3 +168,4 @@ opdrachten/groepsopdracht_final_torcs/torcs-server.box
 opdrachten/groepsopdracht_final_torcs/mysql/.env
 .gitignore
 opdrachten/groepsopdracht_final_torcs/mysql/my-db/
+examples/

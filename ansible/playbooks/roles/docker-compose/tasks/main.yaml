@@ -4,7 +4,7 @@
   local_action: command whoami
   register: username_on_the_host
 
-- debug: 
+- debug:
     msg: "Current user: {{ username_on_the_host.stdout }}"
 
 - name: Get the architecture of this machine
@@ -15,11 +15,11 @@
 - debug: 
     msg: "Arhitecture: {{ architecture.stdout }}"
 
-- name: stat /usr/bin/cls
+- name: Check if docker-compose exists
   become: True
   become_method: sudo
   stat:
-    path: /usr/bin/cls
+    path: /usr/bin/docker-compose
   register: docker_compose
 
 - name: Download docker-compose with checksum
@@ -37,3 +37,4 @@
   become_method: sudo
   remote_user: "{{ username_on_the_host.stdout }}"
   file: dest=/usr/bin/docker-compose mode=a+x
+  when: not docker_compose.stat.exists

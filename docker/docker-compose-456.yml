@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+
+  agent4:
+    image: jaboo/agent:22234
+    restart: always
+    logging:
+      driver: "none"    
+    # Port mapping from host to container
+    ports:
+      - '3004:3004'
+    expose:
+      - '3004'
+
+  agent5:
+    image: jaboo/agent:22235
+    restart: always
+    logging:
+      driver: "none"    
+    # Port mapping from host to container
+    ports:
+      - '3005:3005'
+    expose:
+      - '3005'
+
+  agent6:
+    image: jaboo/agent:22236
+    restart: always
+    logging:
+      driver: "none"    
+    # Port mapping from host to container
+    ports:
+      - '3006:3006'
+    expose:
+      - '3006'      
